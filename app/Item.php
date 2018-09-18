@@ -10,10 +10,17 @@ class Item extends Model
         'name',
         'image',
         'user_id',
-        'id_category',
+        'category_id',
         'quantity',
         'unit_price',
         'discount',
         'ppq'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+
 }

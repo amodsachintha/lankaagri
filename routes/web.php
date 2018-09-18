@@ -17,3 +17,6 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index');
 Route::get('/profile','ProfileController@index');
+
+
+Route::get('/test','ItemsController@show');
