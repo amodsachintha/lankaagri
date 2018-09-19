@@ -10,4 +10,13 @@ class Order extends Model
       'user_id',
       'total'
     ];
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
+
+
+    public function orderlines(){
+        return $this->hasMany('App\Orderline');
+    }
 }

@@ -7,6 +7,11 @@ use App\Item;
 class ItemsController extends Controller
 {
     public function show(){
-        return response()->json(Item::where('user_id',1)->get());
+        $item = Item::all()->first();
+        $user = $item->user();
+        return response()->json($user);
     }
+
+
+
 }

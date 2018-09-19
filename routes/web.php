@@ -20,3 +20,4 @@ Route::get('/profile','ProfileController@index');
 
 
 Route::get('/test','ItemsController@show');
+Route::post('/user/update','ProfileController@update');
