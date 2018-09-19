@@ -21,8 +21,9 @@ class CreateItemsTable extends Migration
             $table->unsignedInteger('category_id');
             $table->integer('quantity');
             $table->float('unit_price');
-            $table->float('discount')->nullable();
+            $table->float('discount')->default(0);
             $table->float('ppq')->nullable();
+            $table->string('description')->nullable();
             $table->boolean('active')->default(false);
             $table->boolean('deleted')->default(false);
             $table->timestamps();

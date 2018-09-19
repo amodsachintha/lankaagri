@@ -18,6 +18,9 @@ class ItemsController extends Controller
 
     public function search(Request $request)
     {
+        if($request->get('param') == ""){
+            return redirect('/');
+        }
         if(Auth::check()){
             $items = Item::where('active', true)
                 ->where('user_id', '!=', Auth::user()->id)
@@ -46,6 +49,19 @@ class ItemsController extends Controller
 
         return view('search')->with(['items' => $items, 'count' => $count]);
     }
+
+
+    public function showItem($id){
+        $item = Item::find(intval($id));
+        if(is_null($item)){
+            return back();
+        }
+
+        return view('item')->with(['item'=>$item]);
+
+
+    }
+
 
 
 }

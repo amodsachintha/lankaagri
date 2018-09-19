@@ -22,8 +22,14 @@ Route::get('/profile','ProfileController@index');
 Route::get('/test','ItemsController@show');
 Route::post('/user/update','ProfileController@update');
 
+Route::get('/item/{id}','ItemsController@showItem');
 Route::get('/items/search','ItemsController@search');
 
 Route::get('/cart','CartController@show');
 Route::get('/cart/update/quantity','CartController@updateQuantity');
 Route::get('/cart/delete','CartController@deleteItemFromCart');
+Route::get('/cart/add','CartController@addToCart');
+
+
+Route::get('/checkout','CartController@checkout');
+Route::post('/checkout','CartController@storeCheckout');

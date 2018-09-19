@@ -16,25 +16,24 @@
                         @foreach($cartItems as $item)
                             <div class="list-group-item  flex-column align-items-start">
                                 <div class="d-flex w-100 justify-content-between mb-2">
-                                    <h5 class="mb-1">{{$item->item->name}}</h5>
+                                    <h5 class="mb-1"><a href="/item/{{$item->item->id}}">{{$item->item->name}}</a></h5>
                                     <h6>Rs. {{number_format(($item->item->unit_price-($item->item->unit_price * $item->item->discount /100.0))  * $item->quantity,2)}} </h6>
                                     <small>added on {{date('d M Y h:m A',strtotime($item->created_at))}}</small>
                                 </div>
-                                <h6>Rs.{{number_format($item->item->unit_price,2)}}@<code>{{$item->item->discount}}% discount</code></h6>
+                                <h6>Rs.{{number_format($item->item->unit_price,2)}} @<code>{{$item->item->discount == null ? '0': $item->item->discount }}% discount</code></h6>
                                 <p>Discounted price: <strong> Rs.{{number_format(($item->item->unit_price-($item->item->unit_price * $item->item->discount /100.0)),2)}}</strong> each </p>
                                 <p class="mb-1">
                                     <input id="{{$item->id}}" type="number" min="1" max="{{$item->item->quantity}}" style="border-radius: 5px" value="{{$item->quantity}}"> items
                                     <button class="btn btn-sm btn-outline-primary" onclick="updateCount('{{$item->id}}')">Update</button>
-                                    <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart('{{$item->id}}')">Remove</button>
+                                    <button class="btn btn-sm btn-outline-danger" onclick="if(confirm('Are you sure?'))removeFromCart('{{$item->id}}')">Remove</button>
                                 </p>
                                 <small>{{$item->item->quantity}} in stock currently.</small>
                             </div>
-                            <hr>
                         @endforeach
                         <div class="list-group-item  flex-column align-items-start bg-white">
                             <div class="d-flex w-100 justify-content-between mb-2">
                                 <h5 class="mb-1">Cart Summary</h5>
-                                <small> </small>
+                                <small></small>
                             </div>
                             <div class="d-flex w-100 justify-content-between mb-2">
                                 <p>Savings: Rs. {{number_format($savings,2)}} </p>
@@ -42,7 +41,9 @@
                             </div>
                             <div class="d-flex w-100 justify-content-between mb-2">
                                 <a href="/" class="btn btn-secondary">Home</a>
-                                <button class="btn btn-success">Checkout</button>
+                                @if($totalWithDiscount != 0)
+                                    <a href="/checkout" class="btn btn-success">Checkout</a>
+                                @endif
                             </div>
 
                         </div>
@@ -82,8 +83,6 @@
                 }
             };
             ajax.send();
-
-
 
         }
     </script>
