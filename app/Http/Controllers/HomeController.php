@@ -26,7 +26,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $items = Item::orderBy(DB::raw('RAND()'))->where('active', true)->where('user_id','!=',Auth::user()->id)->limit(6)->get();
+        if(Auth::check()){
+            $items = Item::orderBy(DB::raw('RAND()'))
+                ->where('active', true)
+                ->where('user_id','!=',Auth::user()->id)
+                ->limit(6)
+                ->get();
+        }
+        else{
+            $items = Item::orderBy(DB::raw('RAND()'))
+                ->where('active', true)
+                ->limit(6)
+                ->get();
+        }
+
         $categories = Category::orderBy('name', 'DESC')->get();
         return view('home')->with(['items' => $items, 'categories' => $categories]);
     }
