@@ -15,9 +15,7 @@
                 </div>
 
             </div>
-            <!-- /.col-lg-3 -->
             <div class="col-lg-9">
-
                 <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel" style="-webkit-filter: drop-shadow(1px 2px 2px #b6b6b6);">
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
