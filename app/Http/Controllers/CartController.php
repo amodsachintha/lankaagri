@@ -199,7 +199,7 @@ class CartController extends Controller
             $cartItem->delete();
         }
 
-        return response()->json($temp, 200);
+        return redirect('/order/show/'.$order_id);
     }
 
 }

@@ -14,6 +14,7 @@ class Item extends Model
         'quantity',
         'unit_price',
         'discount',
+        'description',
         'ppq'
     ];
 

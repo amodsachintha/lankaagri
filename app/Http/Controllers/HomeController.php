@@ -29,6 +29,7 @@ class HomeController extends Controller
         if(Auth::check()){
             $items = Item::orderBy(DB::raw('RAND()'))
                 ->where('active', true)
+                ->where('deleted',false)
                 ->where('user_id','!=',Auth::user()->id)
                 ->limit(6)
                 ->get();
@@ -36,6 +37,7 @@ class HomeController extends Controller
         else{
             $items = Item::orderBy(DB::raw('RAND()'))
                 ->where('active', true)
+                ->where('deleted',false)
                 ->limit(6)
                 ->get();
         }

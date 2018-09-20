@@ -24,6 +24,11 @@ Route::post('/user/update','ProfileController@update');
 
 Route::get('/item/{id}','ItemsController@showItem');
 Route::get('/items/search','ItemsController@search');
+Route::get('/items/add','ItemsController@showAdd');
+Route::post('/items/add','ItemsController@storeItem');
+Route::get('/items/update','ItemsController@showUpdate');
+Route::post('/items/update','ItemsController@doUpdate');
+Route::get('/items/delete','ItemsController@doDelete');
 
 Route::get('/cart','CartController@show');
 Route::get('/cart/update/quantity','CartController@updateQuantity');

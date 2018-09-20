@@ -98,7 +98,8 @@
                                                  aria-valuemin="0"
                                                  aria-valuemax="100"><strong>{{number_format($deliveredPercent,2)}}%</strong>
                                             </div>
-                                            <div class="progress-bar bg-danger text-dark" role="progressbar" style="width: {{number_format($undeliveredPercent,2)}}%; font-size: 15px" aria-valuenow="30"
+                                            <div class="progress-bar bg-danger text-dark" role="progressbar" style="width: {{number_format($undeliveredPercent,2)}}%; font-size: 15px"
+                                                 aria-valuenow="30"
                                                  aria-valuemin="0"
                                                  aria-valuemax="100"><strong>{{number_format($undeliveredPercent,2)}}%</strong>
                                             </div>
@@ -120,17 +121,25 @@
                             @endif
                             @if($_GET['tab'] == 'my_items')
                                 @if(isset($items))
-                                    <div class="col-lg-8 offset-2" align="center">
+                                    <div class="col-md-12">
                                         {{$items->links()}}
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 mb-4" style="-webkit-filter: drop-shadow(1px 2px 2px #b6b6b6);">
+                                        <div class="card border-success text-dark" style="width: 15rem;">
+                                            <img class="card-img-top" src="{{asset('storage/items/add.png')}}" alt="Card image cap">
+                                            <div class="card-body" align="center">
+                                                <a href="/items/add" class="btn btn-success">Add new Item</a>
+                                            </div>
+                                        </div>
                                     </div>
                                     @foreach($items as $item)
                                         <div class="col-lg-4 col-md-6 mb-4" style="-webkit-filter: drop-shadow(1px 2px 2px #b6b6b6);">
                                             <div class="card border-success text-dark" style="width: 15rem;">
-                                                <img class="card-img-top" src="{{asset('storage/items/'.$item->image)}}" alt="Card image cap">
-                                                <div class="card-body">
+                                                <img class="card-img-top" src="{{asset($item->image)}}" alt="Card image cap">
+                                                <div class="card-body" align="center">
                                                     <h5 class="card-title"><a href="/item/{{$item->id}}">{{$item->name}}</a></h5>
                                                     <h6 class="card-subtitle mb-2 text-muted">Rs. {{$item->unit_price}} <span class="badge badge-danger">{{random_int(3,20)}}</span></h6>
-                                                    <p class="card-text">Some quick example text to bulk of the card's content.</p>
+                                                    <p class="card-text">{{$item->description}}</p>
                                                     <a href="/item/{{$item->id}}" class="btn btn-primary">View Item</a>
                                                 </div>
                                             </div>
@@ -143,17 +152,17 @@
 
                             @if($_GET['tab'] == 'pending')
                                 @if(isset($pending))
-                                    <div class="col-lg-8 offset-2" align="center">
+                                    <div class="col-md-12" align="center">
                                         {{$pending->links()}}
                                     </div>
                                     @foreach($pending as $item)
                                         <div class="col-lg-4 col-md-6 mb-4 text-dark" style="-webkit-filter: drop-shadow(1px 2px 2px #b6b6b6);">
                                             <div class="card border-danger" style="width: 15rem;">
-                                                <img class="card-img-top" src="{{asset('storage/items/'.$item->image)}}" alt="Card image cap">
-                                                <div class="card-body">
+                                                <img class="card-img-top" src="{{asset($item->image)}}" alt="Card image cap">
+                                                <div class="card-body" align="center">
                                                     <h5 class="card-title"><a href="/item/{{$item->id}}">{{$item->name}}</a></h5>
                                                     <h6 class="card-subtitle mb-2 text-dark"><strong>Rs. {{$item->unit_price}}</strong></h6>
-                                                    <p class="card-text">Some quick example text to bulk of the card's content.</p>
+                                                    <p class="card-text">{{$item->description}}</p>
                                                     <a href="/item/{{$item->id}}" class="btn btn-primary">View Item</a>
                                                 </div>
                                             </div>
@@ -241,7 +250,7 @@
 
                             @if($_GET['tab'] == 'summary')
                                 @if(isset($purchases))
-                                    <table class="table table-hover bg-white text-center" style="-webkit-filter: drop-shadow(1px 2px 2px #006c0e);">
+                                    <table class="table table-hover table-sm bg-white text-center" style="-webkit-filter: drop-shadow(1px 2px 2px #006c0e);">
                                         <thead>
                                         <tr>
                                             <th colspan="3">PURCHASES ({{strtoupper(date('F'))}})</th>
@@ -273,7 +282,7 @@
                                 @endif
 
                                 @if(isset($orderlines))
-                                    <table class="table table-hover bg-white text-center" style="-webkit-filter: drop-shadow(1px 2px 2px #f4b200);">
+                                    <table class="table table-hover table-sm bg-white text-center" style="-webkit-filter: drop-shadow(1px 2px 2px #f4b200);">
                                         <thead>
                                         <tr>
                                             <th colspan="3">ITEMS SOLD ({{strtoupper(date('F'))}}) (aggregated)</th>

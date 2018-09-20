@@ -15,7 +15,7 @@
                     @foreach($items as $item)
                         <div class="col-lg-3 col-md-5 mb-4" style="-webkit-filter: drop-shadow(1px 2px 2px #b6b6b6);">
                             <div class="card h-100">
-                                <a href="#"><img class="card-img-top" src="{{asset('storage/items/'.$item->image)}}" alt=""></a>
+                                <a href="#"><img class="card-img-top" src="{{asset($item->image)}}" alt=""></a>
                                 <div class="card-body">
                                     <h4 class="card-title">
                                         <a href="/item/{{$item->id}}">{{$item->name}}</a>

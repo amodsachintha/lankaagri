@@ -17,7 +17,7 @@ class CreateItemsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('name');
-            $table->string('image')->nullable();
+            $table->string('image')->default('storage/items/g1.jpg');
             $table->unsignedInteger('category_id');
             $table->integer('quantity');
             $table->float('unit_price');

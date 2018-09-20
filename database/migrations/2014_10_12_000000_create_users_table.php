@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('district')->nullable();
             $table->string('city')->nullable();
             $table->string('st_address')->nullable();
-            $table->string('avatar')->nullable();
+            $table->string('avatar')->default('default.png');
             $table->boolean('isadmin')->default(false);
             $table->rememberToken();
             $table->timestamps();

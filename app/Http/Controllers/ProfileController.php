@@ -53,7 +53,10 @@ class ProfileController extends Controller
         }
 
         if ($tab == 'my_items') {
-            $items = Item::where('user_id', Auth::user()->id)->where('active', true)->paginate(6);
+            $items = Item::where('user_id', Auth::user()->id)
+                ->where('active', true)
+                ->where('deleted',false)
+                ->paginate(6);
             return view('profile')->with([
                 'items' => $items->withPath('/profile?tab=my_items'),
             ]);
@@ -212,8 +215,7 @@ class ProfileController extends Controller
 
     }
 
-    private
-    function getOrderDetailsForOverview()
+    private function getOrderDetailsForOverview()
     {
         $undeliveredorderlines = Orderline::with('item')
             ->where('delivered', false)
