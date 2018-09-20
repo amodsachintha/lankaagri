@@ -6,7 +6,7 @@
     <script src="{{asset('js/Chart.min.js')}}"></script>
     <div class="container">
         <div class="row">
-            <div class="col-md-10 offset-1 text-white p-3 rounded mb-4 text-center shadow" style="background-color: #C0392B">
+            <div class="col-md-12 text-white p-3 rounded mb-4 text-center shadow" style="background-color: #C0392B">
                 <h3>Admin Dashboard</h3>
             </div>
         </div>
@@ -50,7 +50,7 @@
 
                     <script>
                         var config1 = {
-                            type: 'bar',
+                            type: 'pie',
                             data: {
                                 labels: [
                                     @foreach($orderlines as $orderline)
@@ -73,13 +73,6 @@
 
                             },
                             options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                },
                                 title: {
                                     display: true,
                                     text: 'Items vs Quantity ({{date('F')}})'
@@ -88,7 +81,7 @@
                         };
 
                         var config2 = {
-                            type: 'bar',
+                            type: 'pie',
                             data: {
                                 labels: [
                                     @foreach($orderlinesY as $orderline)
@@ -111,13 +104,6 @@
 
                             },
                             options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                },
                                 title: {
                                     display: true,
                                     text: 'Items vs Quantity ({{date('Y')}})'
@@ -279,7 +265,6 @@
                                                             <h6><strong>Rs. {{number_format($adminItem->unit_price,2)}}</strong></h6>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             @endforeach
                                         @endif

@@ -10,7 +10,7 @@
                 <div class="profile-sidebar">
                     <!-- SIDEBAR USERPIC -->
                     <div class="profile-userpic" align="center">
-                        <img src="{{asset('storage/avatars/'.Auth::user()->avatar)}}" class="img-responsive" alt="">
+                        <img src="{{asset(Auth::user()->avatar)}}" class="img-responsive img-thumbnail" alt="">
                     </div>
                     <!-- END SIDEBAR USERPIC -->
                     <!-- SIDEBAR USER TITLE -->
@@ -306,108 +306,136 @@
 
                             @if($_GET['tab'] == 'settings')
                                 @if(isset($user))
-                                    <div class="col-md">
-                                        <form action="/user/update" method="POST">
-                                            {{csrf_field()}}
-                                            <div class="form-group row">
-                                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-                                                <div class="col-md-6">
-                                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{$user->name}}" required
-                                                           autofocus>
-                                                    @if ($errors->has('name'))
-                                                        <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('name') }}</strong></span>
-                                                    @endif
+                                    <div class="col-sm-12">
+                                        <div class="card">
+                                            <form action="/user/update" method="POST">
+                                                <div class="card-header">
+                                                    <h4>Update details</h4>
                                                 </div>
-                                            </div>
+                                                <div class="card-body">
 
-                                            <div class="form-group row">
-                                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-                                                <div class="col-md-6">
-                                                    <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}" disabled>
+                                                    {{csrf_field()}}
+                                                    <div class="form-group row">
+                                                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                                                        <div class="col-md-6">
+                                                            <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{$user->name}}"
+                                                                   required
+                                                                   autofocus>
+                                                            @if ($errors->has('name'))
+                                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('name') }}</strong></span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                                        <div class="col-md-6">
+                                                            <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}" disabled>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="nic" class="col-md-4 col-form-label text-md-right">{{ __('NIC') }}</label>
+                                                        <div class="col-md-6">
+                                                            <input id="nic" type="text" class="form-control" name="nic" value="{{ $user->nic }}" disabled>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="mobile" class="col-md-4 col-form-label text-md-right">{{ __('Mobile') }}</label>
+                                                        <div class="col-md-6">
+                                                            <input id="mobile" type="text" class="form-control{{ $errors->has('mobile') ? ' is-invalid' : '' }}" name="mobile"
+                                                                   value="{{ $user->mobile }}"
+                                                                   required>
+                                                            @if ($errors->has('mobile'))
+                                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('mobile') }}</strong></span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="province" class="col-md-4 col-form-label text-md-right">{{ __('Province') }}</label>
+                                                        <div class="col-md-6">
+                                                            <select id="province" class="form-control{{ $errors->has('province') ? ' is-invalid' : '' }}" name="province" value="{{ $user->province }}"
+                                                                    required>
+                                                                <option>Southern</option>
+                                                                <option>Western</option>
+                                                                <option>Northern</option>
+                                                            </select>
+                                                            @if ($errors->has('province'))
+                                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('province') }}</strong></span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="district" class="col-md-4 col-form-label text-md-right">{{ __('District') }}</label>
+                                                        <div class="col-md-6">
+                                                            <select id="district" class="form-control{{ $errors->has('district') ? ' is-invalid' : '' }}" name="district" value="{{ $user->district }}"
+                                                                    required>
+                                                                <option>Galle</option>
+                                                                <option>Colombo</option>
+                                                                <option>Matale</option>
+                                                            </select>
+                                                            @if ($errors->has('district'))
+                                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('district') }}</strong></span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('City') }}</label>
+                                                        <div class="col-md-6">
+                                                            <input id="city" type="text" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="city" value="{{ $user->city }}"
+                                                                   required>
+                                                            @if ($errors->has('city'))
+                                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('city') }}</strong></span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="st_address" class="col-md-4 col-form-label text-md-right">{{ __('Street Address') }}</label>
+                                                        <div class="col-md-6">
+                                                            <input id="st_address" type="text" class="form-control{{ $errors->has('st_address') ? ' is-invalid' : '' }}" name="st_address"
+                                                                   value="{{ $user->st_address }}">
+                                                            @if ($errors->has('st_address'))
+                                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('st_address') }}</strong></span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+
                                                 </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="nic" class="col-md-4 col-form-label text-md-right">{{ __('NIC') }}</label>
-                                                <div class="col-md-6">
-                                                    <input id="nic" type="text" class="form-control" name="nic" value="{{ $user->nic }}" disabled>
+                                                <div class="card-footer" align="center">
+                                                    <button type="submit" class="btn btn-outline-primary">Update</button>
                                                 </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="mobile" class="col-md-4 col-form-label text-md-right">{{ __('Mobile') }}</label>
-                                                <div class="col-md-6">
-                                                    <input id="mobile" type="text" class="form-control{{ $errors->has('mobile') ? ' is-invalid' : '' }}" name="mobile" value="{{ $user->mobile }}"
-                                                           required>
-                                                    @if ($errors->has('mobile'))
-                                                        <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('mobile') }}</strong></span>
-                                                    @endif
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="province" class="col-md-4 col-form-label text-md-right">{{ __('Province') }}</label>
-                                                <div class="col-md-6">
-                                                    <select id="province" class="form-control{{ $errors->has('province') ? ' is-invalid' : '' }}" name="province" value="{{ $user->province }}"
-                                                            required>
-                                                        <option>Southern</option>
-                                                        <option>Western</option>
-                                                        <option>Northern</option>
-                                                    </select>
-                                                    @if ($errors->has('province'))
-                                                        <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('province') }}</strong></span>
-                                                    @endif
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="district" class="col-md-4 col-form-label text-md-right">{{ __('District') }}</label>
-                                                <div class="col-md-6">
-                                                    <select id="district" class="form-control{{ $errors->has('district') ? ' is-invalid' : '' }}" name="district" value="{{ $user->district }}"
-                                                            required>
-                                                        <option>Galle</option>
-                                                        <option>Colombo</option>
-                                                        <option>Matale</option>
-                                                    </select>
-                                                    @if ($errors->has('district'))
-                                                        <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('district') }}</strong></span>
-                                                    @endif
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('City') }}</label>
-                                                <div class="col-md-6">
-                                                    <input id="city" type="text" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="city" value="{{ $user->city }}" required>
-                                                    @if ($errors->has('city'))
-                                                        <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('city') }}</strong></span>
-                                                    @endif
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="st_address" class="col-md-4 col-form-label text-md-right">{{ __('Street Address') }}</label>
-                                                <div class="col-md-6">
-                                                    <input id="st_address" type="text" class="form-control{{ $errors->has('st_address') ? ' is-invalid' : '' }}" name="st_address"
-                                                           value="{{ $user->st_address }}">
-                                                    @if ($errors->has('st_address'))
-                                                        <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('st_address') }}</strong></span>
-                                                    @endif
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row mb-0">
-                                                <div class="col-md-6 offset-md-4">
-                                                    <button type="submit" class="btn btn-primary">Update</button>
-                                                </div>
-                                            </div>
-
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
                                 @endif
+                                <div class="col mt-3 mb-5">
+                                    <form action="/user/avatar" method="POST" enctype="multipart/form-data">
+                                        {{csrf_field()}}
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>Update profile image</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <input type="file" name="avatar" class="form-control-file" required>
+                                            </div>
+                                            <div class="card-footer" align="center">
+                                                <input type="submit" class="btn btn-outline-primary" value="Update">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             @endif
 
-
+                            @if($_GET['tab'] == 'help')
+                                <div class="col-md">
+                                    SHOW <code>HELP</code> HERE
+                                </div>
+                            @endif
                         @endif
                     </div>
                 </div>

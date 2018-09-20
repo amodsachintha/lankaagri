@@ -66,7 +66,7 @@
                         <li class="nav-item dropdown">
 
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <img class="mb-1 rounded-circle" src="{{asset('storage/avatars/'.Auth::user()->avatar)}}" width="25px"> {{ Auth::user()->name }} <span class="caret"></span>
+                                <img class="mb-1 rounded-circle" src="{{asset(Auth::user()->avatar)}}" width="25px"> {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -88,11 +88,9 @@
                                 <a class="nav-link" href="/admin">Admin</a>
                             </li>
                         @endif
-
                         <li class="nav-item">
                             <a class="nav-link" href="/cart"> Cart <span class="badge badge-info"> {{\App\Http\Controllers\CartController::getCartCount()}}</span></a>
                         </li>
-
                     @endguest
                 </ul>
                 <form class="form-inline my-2 my-lg-0" action="/items/search" method="GET">

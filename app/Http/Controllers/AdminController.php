@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\AdminItem;
 use App\Category;
 use App\Http\Middleware\IsAdmin;
+use App\Item;
 use App\Orderline;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -47,7 +49,7 @@ class AdminController extends Controller
         }
 
         if ($tab == 'users') {
-            $users = User::where('isadmin', false)->get();
+            $users = User::all();
             return view('admin_dash')->with([
                 'users' => $users,
             ]);
@@ -63,8 +65,8 @@ class AdminController extends Controller
 
         if ($tab == 'add_item') {
 
-            if(!is_null($request->get('showAll'))){
-                if($request->get('showAll') == 'true'){
+            if (!is_null($request->get('showAll'))) {
+                if ($request->get('showAll') == 'true') {
                     $adminItems = AdminItem::all();
                     return view('admin_dash')->with([
                         'adminItems' => $adminItems,
@@ -119,6 +121,26 @@ class AdminController extends Controller
         AdminItem::create($data);
 
         return redirect('/admin?tab=add_item&showAll=true');
+
+    }
+
+
+    public function showUser($id)
+    {
+        try {
+            $user = User::findOrFail(intval($id));
+            if ($user->isadmin) {
+                if (Auth::id() != $user->id) {
+                    return response()->json(['err' => '401 : Unauthorized'], 401);
+                }
+            }
+
+            $items = Item::where('user_id', $user->id)->where('deleted',false)->orderBy('created_at', 'DESC')->get();
+
+            return view('pages.user')->with(['user' => $user, 'items' => $items]);
+        } catch (\Throwable $throwable) {
+            return response()->json(['err' => $throwable->getMessage()], 500);
+        }
 
     }
 

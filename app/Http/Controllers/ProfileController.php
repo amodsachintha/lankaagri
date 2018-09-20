@@ -36,10 +36,10 @@ class ProfileController extends Controller
                 ->count();
 
             $temp = $this->getOrderDetailsForOverview();
-            if($temp['total'] == 0){
+            if ($temp['total'] == 0) {
                 $deliveredPercent = 0;
                 $unDeliveredPercent = 0;
-            }else{
+            } else {
                 $deliveredPercent = $temp['deliveredCount'] / $temp['total'] * 100.00;
                 $unDeliveredPercent = $temp['undeliveredCount'] / $temp['total'] * 100.00;
             }
@@ -55,7 +55,7 @@ class ProfileController extends Controller
         if ($tab == 'my_items') {
             $items = Item::where('user_id', Auth::user()->id)
                 ->where('active', true)
-                ->where('deleted',false)
+                ->where('deleted', false)
                 ->get();
             return view('profile')->with([
                 'items' => $items,
@@ -102,28 +102,28 @@ class ProfileController extends Controller
                 }
             }
 
-                foreach ($orders as $order) {
-                    if ($order->item->user_id == Auth::user()->id) {
-                        array_push($orderlines, [
-                            'orderline_id' => $order->id,
-                            'order_id' => $order->order->id,
-                            'cust_id' => $order->order->user->id,
-                            'cust_name' => $order->order->user->name,
-                            'item_id' => $order->item_id,
-                            'item_name' => $order->item->name,
-                            'quantity' => $order->quantity,
-                            'unit_price' => $order->unit_price,
-                            'total' => $order->total,
-                            'shipping_address' => $order->order->purchase == null ? "undefined" : $order->order->purchase->shipping_address,
-                            'created_at' => $order->created_at
-                        ]);
-                    }
+            foreach ($orders as $order) {
+                if ($order->item->user_id == Auth::user()->id) {
+                    array_push($orderlines, [
+                        'orderline_id' => $order->id,
+                        'order_id' => $order->order->id,
+                        'cust_id' => $order->order->user->id,
+                        'cust_name' => $order->order->user->name,
+                        'item_id' => $order->item_id,
+                        'item_name' => $order->item->name,
+                        'quantity' => $order->quantity,
+                        'unit_price' => $order->unit_price,
+                        'total' => $order->total,
+                        'shipping_address' => $order->order->purchase == null ? "undefined" : $order->order->purchase->shipping_address,
+                        'created_at' => $order->created_at
+                    ]);
                 }
-                return view('profile')->with([
-                    'orderlines' => $orderlines,
-                    'fullfilledItems' => $fulfilledItemsArray,
-                    'i' => 1]);
             }
+            return view('profile')->with([
+                'orderlines' => $orderlines,
+                'fullfilledItems' => $fulfilledItemsArray,
+                'i' => 1]);
+        }
 
         if ($tab == 'summary') {
             $purchases = Order::where('user_id', Auth::user()->id)
@@ -253,6 +253,32 @@ class ProfileController extends Controller
         ];
 
 
+    }
+
+    public function updateAvatar(Request $request)
+    {
+        $data = $request->except(['_token']);
+        $user = User::find(Auth::id());
+
+
+        $rules = [
+            'avatar' => 'required|mimes:jpeg,bmp,png'
+        ];
+
+        $validator = Validator::make($request->except(['_token']), $rules);
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+                'prev' => $_SERVER['HTTP_REFERER']
+            ]);
+        }
+
+        $path = "storage/" . $request->file('avatar')->store('avatars');
+        $data['avatar'] = $path;
+
+        $user->update($data);
+
+        return redirect('/profile?tab=settings');
     }
 
 }

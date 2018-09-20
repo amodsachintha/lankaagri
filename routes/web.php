@@ -18,9 +18,8 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::get('/profile','ProfileController@index');
 
-
-Route::get('/test','ItemsController@show');
 Route::post('/user/update','ProfileController@update');
+Route::post('/user/avatar','ProfileController@updateAvatar');
 
 Route::get('/item/{id}','ItemsController@showItem');
 Route::get('/items/search','ItemsController@search');
@@ -46,5 +45,5 @@ Route::get('/orderline/fulfill/{orderlineId}','OrderController@fulfillOrderline'
 
 Route::get('/admin','AdminController@index');
 Route::post('/admin/item/add','AdminController@addItemAsAdmin');
-
 Route::get('/category/add','AdminController@addNewCategory');
+Route::get('/user/{id}','AdminController@showUser');
