@@ -19,4 +19,10 @@ class Order extends Model
     public function orderlines(){
         return $this->hasMany('App\Orderline');
     }
+
+    public function purchase(){
+        return $this->hasOne('App\Purchase');
+    }
+
+
 }

@@ -14,9 +14,7 @@ class Item extends Model
         'quantity',
         'unit_price',
         'discount',
-        'ppq',
-        'created_at',
-        'updated_at',
+        'ppq'
     ];
 
     public function user()

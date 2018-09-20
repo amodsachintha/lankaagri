@@ -33,3 +33,8 @@ Route::get('/cart/add','CartController@addToCart');
 
 Route::get('/checkout','CartController@checkout');
 Route::post('/checkout','CartController@storeCheckout');
+
+
+Route::get('/order/show/{orderId}','OrderController@show');
+
+Route::get('/orderline/fulfill/{orderlineId}','OrderController@fulfillOrderline');

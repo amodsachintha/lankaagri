@@ -36,16 +36,19 @@ class ProfileController extends Controller
                 ->count();
 
             $temp = $this->getOrderDetailsForOverview();
-//            return response()->json($temp);
-            $deliveredPercent = $temp['deliveredCount']/$temp['total']*100.00;
-            $unDeliveredPercent = $temp['undeliveredCount']/$temp['total']*100.00;
-
+            if($temp['total'] == 0){
+                $deliveredPercent = 0;
+                $unDeliveredPercent = 0;
+            }else{
+                $deliveredPercent = $temp['deliveredCount'] / $temp['total'] * 100.00;
+                $unDeliveredPercent = $temp['undeliveredCount'] / $temp['total'] * 100.00;
+            }
 
             return view('profile')->with([
                 'activeItemCount' => $activeItemCount,
                 'pendingItemCount' => $pendingItemCount,
                 'deliveredPercent' => $deliveredPercent,
-                'undeliveredPercent'=>$unDeliveredPercent,
+                'undeliveredPercent' => $unDeliveredPercent,
             ]);
         }
 
@@ -69,26 +72,55 @@ class ProfileController extends Controller
         if ($tab == 'cust_orders') {
             $orders = Orderline::with('item')
                 ->where('delivered', false)
-                ->orderBy('order_id', 'ASC')
+                ->orderBy('order_id', 'DESC')
                 ->get();
             $orderlines = [];
-            foreach ($orders as $order) {
-                if ($order->item->user_id == Auth::user()->id) {
-                    array_push($orderlines, [
-                        'orderline_id' => $order->id,
-                        'order_id' => $order->order->id,
-                        'cust_id' => $order->order->user->id,
-                        'cust_name' => $order->order->user->name,
-                        'item_id' => $order->item_id,
-                        'item_name' => $order->item->name,
-                        'quantity' => $order->quantity,
-                        'unit_price' => $order->unit_price,
-                        'total' => $order->total,
+            $fulfilledItemsArray = [];
+
+            $fulfilledItems = Orderline::with('item')
+                ->where('delivered', true)
+                ->orderBy('updated_at', 'DESC')
+                ->get();
+
+            foreach ($fulfilledItems as $fulfilledItem) {
+                if ($fulfilledItem->item->user_id == Auth::user()->id) {
+                    array_push($fulfilledItemsArray, [
+                        'orderline_id' => $fulfilledItem->id,
+                        'order_id' => $fulfilledItem->order->id,
+                        'cust_id' => $fulfilledItem->order->user->id,
+                        'cust_name' => $fulfilledItem->order->user->name,
+                        'item_id' => $fulfilledItem->item_id,
+                        'item_name' => $fulfilledItem->item->name,
+                        'quantity' => $fulfilledItem->quantity,
+                        'unit_price' => $fulfilledItem->unit_price,
+                        'total' => $fulfilledItem->total,
+                        'updated_at' => $fulfilledItem->updated_at
                     ]);
                 }
             }
-            return view('profile')->with(['orderlines' => $orderlines]);
-        }
+
+                foreach ($orders as $order) {
+                    if ($order->item->user_id == Auth::user()->id) {
+                        array_push($orderlines, [
+                            'orderline_id' => $order->id,
+                            'order_id' => $order->order->id,
+                            'cust_id' => $order->order->user->id,
+                            'cust_name' => $order->order->user->name,
+                            'item_id' => $order->item_id,
+                            'item_name' => $order->item->name,
+                            'quantity' => $order->quantity,
+                            'unit_price' => $order->unit_price,
+                            'total' => $order->total,
+                            'shipping_address' => $order->order->purchase == null ? "undefined" : $order->order->purchase->shipping_address,
+                            'created_at' => $order->created_at
+                        ]);
+                    }
+                }
+                return view('profile')->with([
+                    'orderlines' => $orderlines,
+                    'fullfilledItems' => $fulfilledItemsArray,
+                    'i' => 1]);
+            }
 
         if ($tab == 'summary') {
             $purchases = Order::where('user_id', Auth::user()->id)
@@ -111,7 +143,7 @@ class ProfileController extends Controller
                 ->where('delivered', true)
                 ->where('created_at', '>=', date('Y-m-1'))
                 ->where('created_at', '<=', date('Y-m-31'))
-                ->groupBy('item_id')
+                ->groupBy(['item_id'])
                 ->get();
 
 
@@ -142,11 +174,9 @@ class ProfileController extends Controller
             return view('profile')->with(['user' => Auth::user()]);
         }
 
-
         if ($tab == 'help') {
             return view('profile');
         }
-
 
         return view('profile');
     }
@@ -182,7 +212,8 @@ class ProfileController extends Controller
 
     }
 
-    private function getOrderDetailsForOverview()
+    private
+    function getOrderDetailsForOverview()
     {
         $undeliveredorderlines = Orderline::with('item')
             ->where('delivered', false)
@@ -221,6 +252,5 @@ class ProfileController extends Controller
 
 
     }
-
 
 }
