@@ -15,4 +15,8 @@ class Category extends Model
         return $this->hasMany('App\Item');
     }
 
+    public function adminItems(){
+        return $this->hasMany('App\AdminItem');
+    }
+
 }

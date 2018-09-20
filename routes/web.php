@@ -41,5 +41,10 @@ Route::post('/checkout','CartController@storeCheckout');
 
 
 Route::get('/order/show/{orderId}','OrderController@show');
-
 Route::get('/orderline/fulfill/{orderlineId}','OrderController@fulfillOrderline');
+
+
+Route::get('/admin','AdminController@index');
+Route::post('/admin/item/add','AdminController@addItemAsAdmin');
+
+Route::get('/category/add','AdminController@addNewCategory');

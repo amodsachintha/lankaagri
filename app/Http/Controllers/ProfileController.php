@@ -56,9 +56,9 @@ class ProfileController extends Controller
             $items = Item::where('user_id', Auth::user()->id)
                 ->where('active', true)
                 ->where('deleted',false)
-                ->paginate(6);
+                ->get();
             return view('profile')->with([
-                'items' => $items->withPath('/profile?tab=my_items'),
+                'items' => $items,
             ]);
         }
 
@@ -66,9 +66,9 @@ class ProfileController extends Controller
             $pendingItems = Item::where('user_id', Auth::user()->id)
                 ->where('active', false)
                 ->where('deleted', false)
-                ->paginate(6);
+                ->get();
             return view('profile')->with([
-                'pending' => $pendingItems->withPath('/profile?tab=pending'),
+                'pending' => $pendingItems,
             ]);
         }
 

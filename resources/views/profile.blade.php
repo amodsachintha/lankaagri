@@ -23,12 +23,7 @@
                         </div>
                     </div>
                     <!-- END SIDEBAR USER TITLE -->
-                    <!-- SIDEBAR BUTTONS -->
-                    <div class="profile-userbuttons">
-                        <button type="button" class="btn btn-success btn-sm">Follow</button>
-                        <button type="button" class="btn btn-danger btn-sm">Message</button>
-                    </div>
-                    <!-- END SIDEBAR BUTTONS -->
+
                     <!-- SIDEBAR MENU -->
                     <div class="profile-usermenu">
                         <ul class="list-group">
@@ -121,9 +116,7 @@
                             @endif
                             @if($_GET['tab'] == 'my_items')
                                 @if(isset($items))
-                                    <div class="col-md-12">
-                                        {{$items->links()}}
-                                    </div>
+
                                     <div class="col-lg-4 col-md-6 mb-4" style="-webkit-filter: drop-shadow(1px 2px 2px #b6b6b6);">
                                         <div class="card border-success text-dark" style="width: 15rem;">
                                             <img class="card-img-top" src="{{asset('storage/items/add.png')}}" alt="Card image cap">
@@ -152,9 +145,7 @@
 
                             @if($_GET['tab'] == 'pending')
                                 @if(isset($pending))
-                                    <div class="col-md-12" align="center">
-                                        {{$pending->links()}}
-                                    </div>
+
                                     @foreach($pending as $item)
                                         <div class="col-lg-4 col-md-6 mb-4 text-dark" style="-webkit-filter: drop-shadow(1px 2px 2px #b6b6b6);">
                                             <div class="card border-danger" style="width: 15rem;">

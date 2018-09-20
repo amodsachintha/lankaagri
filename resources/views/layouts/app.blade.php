@@ -83,6 +83,12 @@
                             </div>
                         </li>
 
+                        @if(Auth::user()->isadmin)
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin">Admin</a>
+                            </li>
+                        @endif
+
                         <li class="nav-item">
                             <a class="nav-link" href="/cart"> Cart <span class="badge badge-info"> {{\App\Http\Controllers\CartController::getCartCount()}}</span></a>
                         </li>
