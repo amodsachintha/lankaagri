@@ -53,19 +53,22 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary w-50">
                                     {{ __('Login') }}
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
+                                {{--<a class="btn btn-link" href="{{ route('password.request') }}">--}}
+                                    {{--{{ __('Forgot Your Password?') }}--}}
+                                {{--</a>--}}
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row bg-image" style="min-height: 25rem;">
+
     </div>
 </div>
 @endsection

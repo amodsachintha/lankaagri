@@ -87,9 +87,9 @@ class AdminController extends Controller
     public function addNewCategory(Request $request)
     {
         $catName = $request->get('name');
-//        if (strlen($catName) <= 2) {
-//            return response()->json(['msg' => 'fail']);
-//        }
+        if (strlen($catName) <= 2) {
+            return response()->json(['msg' => 'fail']);
+        }
 
         $cat = new Category;
         $cat->name = $catName;

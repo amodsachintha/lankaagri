@@ -24,12 +24,35 @@
     <link href="{{ asset('css/profile.css') }}" rel="stylesheet">
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
     <style>
-        .footer {
-            position: fixed;
-            bottom: 0;
+        .copyright
+        {
             width: 100%;
-            line-height: 40px;
+            background: #fafafa;
         }
+        .copyright_container
+        {
+            width: 100%;
+            height: 56px;
+        }
+        .copyright_content
+        {
+            font-size: 12px;
+            color: rgba(0,0,0,0.6);
+        }
+        .copyright_content span
+        {
+            font-weight: 500;
+        }
+        .bg-image
+        {
+            background-image: url({{asset('storage/carousel/GroceriesPhoto.png')}});
+            height: 100%;
+            background-position: bottom;
+            background-repeat: no-repeat;
+            /*background-size: cover;*/
+        }
+
+
     </style>
 </head>
 <body>
@@ -103,14 +126,22 @@
 
     <main class="py-4">
         @yield('content')
-
     </main>
-    <footer class="py-0 bg-dark footer">
+    <div class="copyright">
         <div class="container">
-            <p class="m-0 text-center text-light">Copyright &copy; amodsachintha {{date('Y')}}</p>
+            <div class="row">
+                <div class="col">
+
+                    <div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
+                        <div class="copyright_content">
+                            Lanka Agri &copy; <script>document.write(new Date().getFullYear());</script>
+                            All rights reserved | <a href="https://amodsachintha.github.io" target="_blank">amodsachintha</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.container -->
-    </footer>
+    </div>
 </div>
 </body>
 </html>

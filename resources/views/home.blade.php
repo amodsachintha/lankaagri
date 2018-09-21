@@ -9,7 +9,8 @@
                 <div class="list-group">
                     @if(isset($categories))
                         @foreach($categories as $category)
-                            <a href="/categories/{{$category->name}}" class="list-group-item list-group-item-info btn btn-outline-info text-left"><span class="fa fa-caret-right"></span> {{$category->name}}</a>
+                            <a href="/categories/{{$category->name}}" class="list-group-item list-group-item-info btn btn-outline-info text-left"><span
+                                        class="fa fa-caret-right"></span> {{$category->name}}</a>
                         @endforeach
                     @endif
                 </div>
@@ -48,10 +49,18 @@
                         @foreach($items as $item)
                             <div class="col-lg-4 col-md-6 mb-4" style="-webkit-filter: drop-shadow(1px 2px 2px #b6b6b6);">
                                 <div class="card h-100">
-                                    <a href="/item/{{$item->id}}"><img class="card-img-top" src="{{asset($item->image)}}" alt=""></a>
+                                    @if(Auth::check())
+                                        <a href="/item/{{$item->id}}"><img class="card-img-top" src="{{asset($item->image)}}" alt=""></a>
+                                    @else
+                                        <img class="card-img-top" src="{{asset($item->image)}}" alt="">
+                                    @endif
                                     <div class="card-body">
                                         <h4 class="card-title">
-                                            <a href="/item/{{$item->id}}">{{$item->name}}</a>
+                                            @if(Auth::check())
+                                                <a href="/item/{{$item->id}}">{{$item->name}}</a>
+                                            @else
+                                                {{$item->name}}
+                                            @endif
                                         </h4>
                                         <h5>Rs. {{$item->unit_price}}</h5>
                                         <h6><a href="#">{{'@'.str_replace(' ','',strtolower($item->user->name))}}</a></h6>
