@@ -31,7 +31,7 @@ Route::post('/items/add','ItemsController@storeItem');
 Route::get('/items/update','ItemsController@showUpdate');
 Route::post('/items/update','ItemsController@doUpdate');
 Route::get('/items/delete','ItemsController@doDelete');
-Route::get('/category/{category}','ItemsController@itemsByCategory');
+Route::get('/categories/{category}','ItemsController@itemsByCategory');
 
 
 Route::get('/cart','CartController@show');

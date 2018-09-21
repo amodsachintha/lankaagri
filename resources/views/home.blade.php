@@ -9,7 +9,7 @@
                 <div class="list-group">
                     @if(isset($categories))
                         @foreach($categories as $category)
-                            <a href="/category/{{$category->name}}" class="list-group-item list-group-item-info btn btn-outline-info text-left"><span class="fa fa-caret-right"></span> {{$category->name}}</a>
+                            <a href="/categories/{{$category->name}}" class="list-group-item list-group-item-info btn btn-outline-info text-left"><span class="fa fa-caret-right"></span> {{$category->name}}</a>
                         @endforeach
                     @endif
                 </div>
