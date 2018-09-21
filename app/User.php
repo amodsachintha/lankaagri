@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'nic', 'mobile', 'province', 'district', 'city', 'st_address','avatar'
+        'name', 'email', 'password', 'nic', 'mobile', 'province', 'district', 'city', 'st_address', 'avatar'
     ];
 
     /**
@@ -24,14 +24,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'remember_token',
     ];
 
-    public function orders(){
+    public function orders()
+    {
         return $this->hasMany('App\Order');
     }
 
-    public function items(){
+    public function items()
+    {
         return $this->hasMany('App\Item');
     }
 

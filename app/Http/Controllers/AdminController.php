@@ -81,7 +81,6 @@ class AdminController extends Controller
             ]);
         }
 
-
         return view('admin_dash');
     }
 
@@ -112,7 +111,7 @@ class AdminController extends Controller
         $validator = Validator::make($data, $rules);
 
         if ($validator->fails()) {
-            return back()->with('errors', $validator->errors());
+            return back()->with(['errors' => $validator->errors()]);
         }
 
         $path = "storage/" . $request->file('image')->store('items');
@@ -120,7 +119,7 @@ class AdminController extends Controller
 
         AdminItem::create($data);
 
-        return redirect('/admin?tab=add_item&showAll=true');
+        return back()->with(['success' => 1]);
 
     }
 
@@ -135,13 +134,44 @@ class AdminController extends Controller
                 }
             }
 
-            $items = Item::where('user_id', $user->id)->where('deleted',false)->orderBy('created_at', 'DESC')->get();
+            $items = Item::where('user_id', $user->id)->where('deleted', false)->orderBy('created_at', 'DESC')->get();
 
             return view('pages.user')->with(['user' => $user, 'items' => $items]);
         } catch (\Throwable $throwable) {
             return response()->json(['err' => $throwable->getMessage()], 500);
         }
+    }
 
+    public function enableUserItem(Request $request)
+    {
+        $itemId = intval($request->get('itemId'));
+        try {
+            $item = Item::findOrFail($itemId);
+            $item->active = true;
+            $item->save();
+            return response()->json(['msg' => 'ok']);
+        } catch (\Throwable $throwable) {
+            return response()->json([
+                'msg' => 'fail',
+                'info' => $throwable->getMessage()
+            ],500);
+        }
+    }
+
+    public function disableUserItem(Request $request)
+    {
+        $itemId = intval($request->get('itemId'));
+        try {
+            $item = Item::findOrFail($itemId);
+            $item->active = false;
+            $item->save();
+            return response()->json(['msg' => 'ok']);
+        } catch (\Throwable $throwable) {
+            return response()->json([
+                'msg' => 'fail',
+                'info' => $throwable->getMessage()
+            ],500);
+        }
     }
 
 

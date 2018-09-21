@@ -72,6 +72,20 @@
                             @endif
                         @endif
 
+                        @if(!is_null($_GET['tab']))
+                            @if($_GET['tab'] == 'summary')
+                                <ul class="list-group mt-3">
+                                    <li class="list-group-item" style="text-align: center">
+                                        <a href="/summary?purchases=true" class="btn btn-outline-success">All Purchases</a>
+                                    </li>
+                                    <li class="list-group-item" style="text-align: center">
+                                        <a href="/summary?sales=true" class="btn btn-outline-success w-50">All Sales</a>
+                                    </li>
+                                </ul>
+                            @endif
+                        @endif
+
+
                     </div>
                     <!-- END MENU -->
                 </div>
@@ -83,61 +97,54 @@
 
                             @if($_GET['tab'] == 'overview')
                                 <div class="col-md-12">
-                                    <div class="alert alert-success" role="alert">
+                                    <div class="alert alert-success text-center mt-5 shadow-lg" role="alert">
                                         <h4 class="alert-heading">Overview for <strong>{{date('F')}}</strong></h4>
-                                        <p>Active Items: {{$activeItemCount}}</p>
-                                        <p>Pending Items: {{$pendingItemCount}}</p>
                                         <hr>
-                                        <div class="progress" style="height: 40px">
-                                            <div class="progress-bar bg-success text-dark" role="progressbar" style="width: {{number_format($deliveredPercent,2)}}%; font-size: 15px" aria-valuenow="15"
+                                        <h4>Active Items: <span class="badge badge-success">&nbsp;{{$activeItemCount}}&nbsp;</span></h4>
+                                        <h4>Pending Items: <span class="badge badge-secondary">&nbsp;{{$pendingItemCount}}&nbsp;</span></h4>
+                                        <h4>Pending Orders: <span class="badge badge-danger">&nbsp;{{$undeliveredCount}}&nbsp;</span></h4>
+                                        <hr>
+                                        <div class="progress shadow mb-2" style="height: 40px">
+                                            <div class="progress-bar bg-success text-dark progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{number_format($deliveredPercent,2)}}%; font-size: 15px" aria-valuenow="15"
                                                  aria-valuemin="0"
                                                  aria-valuemax="100"><strong>{{number_format($deliveredPercent,2)}}%</strong>
                                             </div>
-                                            <div class="progress-bar bg-danger text-dark" role="progressbar" style="width: {{number_format($undeliveredPercent,2)}}%; font-size: 15px"
+                                            <div class="progress-bar bg-danger text-dark progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{number_format($undeliveredPercent,2)}}%; font-size: 15px"
                                                  aria-valuenow="30"
                                                  aria-valuemin="0"
                                                  aria-valuemax="100"><strong>{{number_format($undeliveredPercent,2)}}%</strong>
                                             </div>
                                         </div>
-                                        <p class="mb-1"><span class="badge badge-success">Fulfilled Orders</span>
+                                        <p class="mb-1" style="font-size: 18px;">
+                                            <span class="badge badge-success">Fulfilled Orders</span>
                                             <span class="badge badge-danger">Waiting to be delivered</span>
                                         </p>
                                     </div>
 
-                                    <div class="list-group">
-                                        <div class="list-group-item  flex-column align-items-start">
-                                            <div class="d-flex w-100 justify-content-center mb-2">
-                                                <h5 class="mb-1"><strong>gggg</strong></h5>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                 </div>
                             @endif
                             @if($_GET['tab'] == 'my_items')
                                 @if(isset($items))
-
-                                    <div class="col-lg-4 col-md-6 mb-4" style="-webkit-filter: drop-shadow(1px 2px 2px #b6b6b6);">
-                                        <div class="card border-success text-dark" style="width: 15rem;">
+                                    <div class="card-columns">
+                                        <div class="card border-success bg-warning text-dark shadow" style="width: 15rem;">
                                             <img class="card-img-top" src="{{asset('storage/items/add.png')}}" alt="Card image cap">
                                             <div class="card-body" align="center">
                                                 <a href="/items/add" class="btn btn-success">Add new Item</a>
                                             </div>
                                         </div>
-                                    </div>
-                                    @foreach($items as $item)
-                                        <div class="col-lg-4 col-md-6 mb-4" style="-webkit-filter: drop-shadow(1px 2px 2px #b6b6b6);">
-                                            <div class="card border-success text-dark" style="width: 15rem;">
+                                        @foreach($items as $item)
+                                            <div class="card border-success text-dark shadow" style="width: 15rem;">
                                                 <img class="card-img-top" src="{{asset($item->image)}}" alt="Card image cap">
                                                 <div class="card-body" align="center">
                                                     <h5 class="card-title"><a href="/item/{{$item->id}}">{{$item->name}}</a></h5>
-                                                    <h6 class="card-subtitle mb-2 text-muted">Rs. {{$item->unit_price}} <span class="badge badge-danger">{{random_int(3,20)}}</span></h6>
+                                                    <h6 class="card-subtitle mb-2 text-muted">Rs. {{$item->unit_price}}</h6>
                                                     <p class="card-text">{{$item->description}}</p>
                                                     <a href="/item/{{$item->id}}" class="btn btn-primary">View Item</a>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    </div>
                                 @else
                                     <p>No items!</p>
                                 @endif
@@ -145,10 +152,9 @@
 
                             @if($_GET['tab'] == 'pending')
                                 @if(isset($pending))
-
-                                    @foreach($pending as $item)
-                                        <div class="col-lg-4 col-md-6 mb-4 text-dark" style="-webkit-filter: drop-shadow(1px 2px 2px #b6b6b6);">
-                                            <div class="card border-danger" style="width: 15rem;">
+                                    <div class="card-columns">
+                                        @foreach($pending as $item)
+                                            <div class="card border-danger shadow" style="width: 15rem;">
                                                 <img class="card-img-top" src="{{asset($item->image)}}" alt="Card image cap">
                                                 <div class="card-body" align="center">
                                                     <h5 class="card-title"><a href="/item/{{$item->id}}">{{$item->name}}</a></h5>
@@ -157,8 +163,8 @@
                                                     <a href="/item/{{$item->id}}" class="btn btn-primary">View Item</a>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    </div>
                                 @else
                                     <p>No items!</p>
                                 @endif
@@ -306,8 +312,64 @@
 
                             @if($_GET['tab'] == 'settings')
                                 @if(isset($user))
+                                    <div class="col-sm-12 mt-0 mb-2">
+                                        @if(session()->has('passwordUpdate'))
+                                            @if(session()->get('passwordUpdate') == true)
+                                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                    Password updated!
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            @endif
+                                            @if(session()->get('passwordUpdate') == false)
+                                                <div class="alert alert-danger alert-dismissible fade show shadow" role="alert">
+                                                    Password update failed! Try again.
+                                                    @if(session()->has('errors'))
+                                                        @foreach(session()->get('errors')->all() as $message)
+                                                            <br><code>{{$message}}</code>
+                                                        @endforeach
+                                                    @endif
+                                                    @if(session()->has('err'))
+                                                        <br>
+                                                        <code>{{session()->get('err')}}</code>
+                                                    @endif
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            @endif
+                                        @endif
+                                    </div>
+                                    <div class="col mt-1 mb-5">
+                                        <form action="/user/password" method="POST" enctype="multipart/form-data">
+                                            {{csrf_field()}}
+                                            <div class="card shadow">
+                                                <div class="card-header">
+                                                    <h4>Update Password</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="form-group">
+                                                        <label>Current Password</label>
+                                                        <input type="password" name="password_old" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>New Password</label>
+                                                        <input type="password" name="password" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Confirm new Password</label>
+                                                        <input type="password" name="password_confirmation" class="form-control" required>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer" align="center">
+                                                    <input type="submit" class="btn btn-outline-primary" value="Update">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                     <div class="col-sm-12">
-                                        <div class="card">
+                                        <div class="card shadow">
                                             <form action="/user/update" method="POST">
                                                 <div class="card-header">
                                                     <h4>Update details</h4>
@@ -416,7 +478,7 @@
                                 <div class="col mt-3 mb-5">
                                     <form action="/user/avatar" method="POST" enctype="multipart/form-data">
                                         {{csrf_field()}}
-                                        <div class="card">
+                                        <div class="card shadow">
                                             <div class="card-header">
                                                 <h4>Update profile image</h4>
                                             </div>

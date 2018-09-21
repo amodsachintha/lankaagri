@@ -59,14 +59,13 @@
                                 <td>{{date('Y-m-d',strtotime($item->created_at))}}</td>
                                 @if($item->active)
                                     <td>
-                                        <button class="btn btn-sm btn-outline-danger">Disable</button>
+                                        <button onclick="disableItem('{{$item->id}}')" class="btn btn-sm btn-danger">Disable</button>
                                     </td>
                                 @else
                                     <td>
-                                        <button class="btn btn-sm btn-outline-success">Enable</button>
+                                        <button onclick="enableItem('{{$item->id}}')" class="btn btn-sm btn-success">Enable</button>
                                     </td>
                                 @endif
-
                             </tr>
                             @endforeach
                     </tbody>
@@ -79,6 +78,36 @@
                 <a href="/admin?tab=users" class="btn btn-outline-dark">Back</a>
             </div>
         </div>
+
+        <script>
+            function enableItem(itemId) {
+                var ajax = new XMLHttpRequest();
+                ajax.open('GET', '/admin/item/enable?itemId=' + itemId, true);
+                ajax.onload = function (ev) {
+                  var list = JSON.parse(ajax.responseText);
+                  if(list['msg'] === 'ok'){
+                      window.location.reload(true);
+                  }else{
+                      alert('Failed to enable item. Sorry!');
+                  }
+                };
+                ajax.send();
+            }
+
+            function disableItem(itemId) {
+                var ajax = new XMLHttpRequest();
+                ajax.open('GET', '/admin/item/disable?itemId=' + itemId, true);
+                ajax.onload = function (ev) {
+                    var list = JSON.parse(ajax.responseText);
+                    if(list['msg'] === 'ok'){
+                        window.location.reload(true);
+                    }else{
+                        alert('Failed to disable item. Sorry!');
+                    }
+                };
+                ajax.send();
+            }
+        </script>
 
 
     </div>

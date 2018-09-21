@@ -6,14 +6,13 @@
         <div class="row">
             <div class="col-lg-3">
                 <h1 class="my-4">Lanka Agri</h1>
-                <div class="list-group" >
+                <div class="list-group">
                     @if(isset($categories))
                         @foreach($categories as $category)
-                            <a href="/category/{{$category->name}}" class="list-group-item bg-secondary text-white"><span class="fa fa-caret-right"></span> {{$category->name}}</a>
+                            <a href="/category/{{$category->name}}" class="list-group-item list-group-item-info btn btn-outline-info text-left"><span class="fa fa-caret-right"></span> {{$category->name}}</a>
                         @endforeach
                     @endif
                 </div>
-
             </div>
             <div class="col-lg-9">
                 <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel" style="-webkit-filter: drop-shadow(1px 2px 2px #b6b6b6);">
@@ -58,18 +57,18 @@
                                         <h6><a href="#">{{'@'.str_replace(' ','',strtolower($item->user->name))}}</a></h6>
                                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
                                     </div>
-                                    <div class="card-footer" align="center">
-                                        <button class="btn btn-outline-info" onclick="addToCart('{{$item->id}}')">Add to cart</button>
-                                    </div>
+                                    @if(Auth::check())
+                                        <div class="card-footer" align="center">
+                                            <button class="btn btn-outline-info" onclick="addToCart('{{$item->id}}')">Add to cart</button>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach
                     @endif
 
                 </div>
-
             </div>
-
         </div>
 
     </div>

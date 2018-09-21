@@ -25,13 +25,13 @@ class ItemsController extends Controller
         }
         if (Auth::check()) {
             $items = Item::where('active', true)
-                ->where('user_id', '!=', Auth::user()->id)
+//                ->where('user_id', '!=', Auth::user()->id)
                 ->where('deleted', false)
                 ->where('name', 'like', '%' . $request->get('param') . '%')
                 ->get();
 
             $count = Item::where('active', true)
-                ->where('user_id', '!=', Auth::user()->id)
+//                ->where('user_id', '!=', Auth::user()->id)
                 ->where('deleted', false)
                 ->where('name', 'like', '%' . $request->get('param') . '%')
                 ->count();
@@ -152,16 +152,46 @@ class ItemsController extends Controller
 
     }
 
-    public function doDelete(Request $request){
+    public function doDelete(Request $request)
+    {
         $id = intval($request->get('itemId'));
-        try{
+        try {
             $item = Item::findOrFail($id);
             $item->deleted = true;
             $item->save();
-            return response()->json(['msg'=>'ok']);
-        }catch (\Throwable $throwable){
-            return response()->json(['msg'=>'fail']);
+            return response()->json(['msg' => 'ok']);
+        } catch (\Throwable $throwable) {
+            return response()->json(['msg' => 'fail']);
         }
+    }
+
+
+    public function itemsByCategory($category)
+    {
+        $categories = Category::orderBy('name', 'ASC')->get();
+        $cat = Category::where('name', 'like', '%' . $category . '%')->first();
+        if (is_null($cat)) {
+            return response()->json(['err' => '404 : Not Found'], 404);
+        } else {
+            $cat_id = $cat->id;
+        }
+
+        $items = Item::where('active', true)
+            ->where('deleted', false)
+            ->where('category_id', $cat_id)
+            ->get();
+
+        $count = Item::where('active', true)
+            ->where('deleted', false)
+            ->where('category_id', $cat_id)
+            ->count();
+
+        return view('category')->with([
+            'items' => $items,
+            'count' => $count,
+            'category' => $cat->name,
+            'categories' => $categories,
+        ]);
     }
 
 

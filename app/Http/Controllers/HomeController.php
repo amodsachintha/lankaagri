@@ -42,7 +42,7 @@ class HomeController extends Controller
                 ->get();
         }
 
-        $categories = Category::orderBy('name', 'DESC')->get();
+        $categories = Category::orderBy('name', 'ASC')->get();
         return view('home')->with(['items' => $items, 'categories' => $categories]);
     }
 }

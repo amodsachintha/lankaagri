@@ -146,7 +146,7 @@
                                             <td>{{$user->email}}</td>
                                             <td>{{$user->nic}}</td>
                                             <td>{{$user->mobile}}</td>
-                                            <td><a href="/user/{{$user->id}}" class="btn btn-sm btn-outline-primary">View</a></td>
+                                            <td><a href="/user/{{$user->id}}" class="btn btn-sm {{$user->isadmin == true ? 'btn-outline-danger':'btn-outline-primary'}}">View</a></td>
                                         </tr>
                                     @endforeach
                                 @endif
@@ -201,6 +201,29 @@
 
                 @if($_GET['tab'] == 'add_item')
                     @if(isset($_GET['showAll']))
+                        @if(session()->has('errors'))
+                            <div class="col">
+                                <div class="alert alert-danger alert-dismissible fade show shadow" role="alert">
+                                    Failed to add Item!
+                                    @foreach(session()->get('errors')->all() as $message)
+                                        <br><code>{{$message}}</code>
+                                    @endforeach
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                        @endif
+                        @if(session()->has('success'))
+                            <div class="col">
+                                <div class="alert alert-success alert-dismissible fade show shadow" role="alert">
+                                    Item added successfully!
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                        @endif
                         @if($_GET['showAll'] == 'false')
                             <div class="row shadow-sm">
                                 <div class="col-sm p-0">

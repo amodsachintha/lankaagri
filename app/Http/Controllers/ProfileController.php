@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Item;
 use App\Order;
 use App\Orderline;
+use App\Purchase;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
@@ -49,6 +51,7 @@ class ProfileController extends Controller
                 'pendingItemCount' => $pendingItemCount,
                 'deliveredPercent' => $deliveredPercent,
                 'undeliveredPercent' => $unDeliveredPercent,
+                'undeliveredCount' => $temp['undeliveredCount'],
             ]);
         }
 
@@ -281,4 +284,80 @@ class ProfileController extends Controller
         return redirect('/profile?tab=settings');
     }
 
+
+    public function updatePassword(Request $request)
+    {
+        $data = $request->except(['_token']);
+        $rules = [
+            'password_old' => 'required',
+            'password' => 'required|min:4|confirmed',
+            'password_confirmation' => 'required'
+        ];
+
+
+        $validator = Validator::make($data, $rules);
+        if ($validator->fails()) {
+            return back()->with(['passwordUpdate' => false, 'errors' => $validator->errors()]);
+        }
+
+        $user = User::find(Auth::id());
+
+        if (Hash::check($data['password_old'], $user->password)) {
+            $request->user()->fill([
+                'password' => Hash::make($request->get('password'))
+            ])->save();
+            return back()->with(['passwordUpdate' => true]);
+        } else {
+            return back()->with(['passwordUpdate' => false, 'err' => 'Current password does not match!']);
+        }
+
+    }
+
+
+    public function showSummary(Request $request)
+    {
+        $req_purchases = $request->get('purchases');
+        $req_sales = $request->get('sales');
+
+        if (!is_null($req_purchases)) {
+            $orders = Order::with('purchase')
+                ->where('user_id', Auth::id())
+                ->orderBy('created_at', 'DESC')
+                ->get();
+
+            return view('pages.summary')->with(['orders' => $orders]);
+        }
+
+        if (!is_null($req_sales)) {
+            $cust_orders = Orderline::with('item')
+                ->select([
+                    'item_id',
+                    DB::raw('SUM(quantity) as quantity'),
+                    DB::raw('SUM(total) as total'),
+                ])
+                ->where('delivered', true)
+                ->groupBy(['item_id'])
+                ->get();
+
+            $orderlines = [];
+            $orderlineTotal = 0;
+            foreach ($cust_orders as $order) {
+                if ($order->item->user_id == Auth::user()->id) {
+                    array_push($orderlines, [
+                        'item_id' => $order->item_id,
+                        'item_name' => $order->item->name,
+                        'quantity' => $order->quantity,
+                        'total' => $order->total,
+                    ]);
+                    $orderlineTotal += $order->total;
+                }
+            }
+            return view('pages.summary')->with([
+                'orderlines'=> $orderlines,
+                'orderlinesTotal' => $orderlineTotal
+            ]);
+        }
+
+        return response()->json(['err' => '404 : Not Found'], 404);
+    }
 }

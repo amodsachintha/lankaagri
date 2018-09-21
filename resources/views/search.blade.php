@@ -3,34 +3,41 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-2">
-                <div class="alert alert-success">
-                    Showing results for "{{$_GET['param']}}". {{$count}} results found!
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    Showing results for "{{$_GET['param']}}". {{$count}} result(s) found!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
         </div>
 
         <div class="row">
 
-                @if(isset($items))
-                    @foreach($items as $item)
-                        <div class="col-lg-3 col-md-5 mb-4" style="-webkit-filter: drop-shadow(1px 2px 2px #b6b6b6);">
-                            <div class="card h-100">
-                                <a href="#"><img class="card-img-top" src="{{asset($item->image)}}" alt=""></a>
-                                <div class="card-body">
-                                    <h4 class="card-title">
-                                        <a href="/item/{{$item->id}}">{{$item->name}}</a>
-                                    </h4>
-                                    <h5>Rs. {{$item->unit_price}}</h5>
-                                    <h6><a href="#">{{'@'.str_replace(' ','',strtolower($item->user->name))}}</a></h6>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                                </div>
-                                <div class="card-footer" align="center">
-                                    <button class="btn btn-outline-info" onclick="addToCart('{{$item->id}}')">Add to cart</button>
-                                </div>
+            @if(isset($items))
+                @foreach($items as $item)
+                    <div class="col-lg-3 col-md-5 mb-4" style="-webkit-filter: drop-shadow(1px 2px 2px #b6b6b6);">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="{{asset($item->image)}}" alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="/item/{{$item->id}}">{{$item->name}}</a>
+                                </h4>
+                                <h5>Rs. {{$item->unit_price}}</h5>
+                                <h6><a href="#">{{'@'.str_replace(' ','',strtolower($item->user->name))}}</a></h6>
+                                <p class="card-text">{{$item->description}}</p>
                             </div>
+                            @if(\Auth::check())
+                                @if(\Auth::id() != $item->user_id)
+                                    <div class="card-footer" align="center">
+                                        <button class="btn btn-outline-info" onclick="addToCart('{{$item->id}}')">Add to cart</button>
+                                    </div>
+                                @endif
+                            @endif
                         </div>
-                    @endforeach
-                @endif
+                    </div>
+                @endforeach
+            @endif
 
         </div>
 

@@ -17,9 +17,12 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index');
 Route::get('/profile','ProfileController@index');
+Route::get('/summary','ProfileController@showSummary');
+
 
 Route::post('/user/update','ProfileController@update');
 Route::post('/user/avatar','ProfileController@updateAvatar');
+Route::post('/user/password','ProfileController@updatePassword');
 
 Route::get('/item/{id}','ItemsController@showItem');
 Route::get('/items/search','ItemsController@search');
@@ -28,6 +31,8 @@ Route::post('/items/add','ItemsController@storeItem');
 Route::get('/items/update','ItemsController@showUpdate');
 Route::post('/items/update','ItemsController@doUpdate');
 Route::get('/items/delete','ItemsController@doDelete');
+Route::get('/category/{category}','ItemsController@itemsByCategory');
+
 
 Route::get('/cart','CartController@show');
 Route::get('/cart/update/quantity','CartController@updateQuantity');
@@ -47,3 +52,5 @@ Route::get('/admin','AdminController@index');
 Route::post('/admin/item/add','AdminController@addItemAsAdmin');
 Route::get('/category/add','AdminController@addNewCategory');
 Route::get('/user/{id}','AdminController@showUser');
+Route::get('/admin/item/enable','AdminController@enableUserItem');
+Route::get('/admin/item/disable','AdminController@disableUserItem');

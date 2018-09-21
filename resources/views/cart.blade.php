@@ -3,8 +3,11 @@
     <div class="container mb-5">
         <div class="row">
             <div class="col-md-8 offset-2">
-                <div class="alert alert-success">
-                    {{\App\Http\Controllers\CartController::getCartCount()}} item(s) in your cart!
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{\App\Http\Controllers\CartController::getCartCount()}}</strong> item(s) in your cart!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
         </div>
