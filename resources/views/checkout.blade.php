@@ -32,13 +32,13 @@
 
                         <hr>
 
-                            <form action="/checkout" method="POST">
-                        <div class="list-group-item  flex-column align-items-start bg-white">
-                            <div class="d-flex w-100 justify-content-between mb-2">
-                                <h5 class="mb-1">Shipping & Billing</h5>
-                                <small></small>
-                            </div>
-                            <div>
+                        <form action="/checkout" method="POST">
+                            <div class="list-group-item  flex-column align-items-start bg-white">
+                                <div class="d-flex w-100 justify-content-between mb-2">
+                                    <h5 class="mb-1">Shipping & Billing</h5>
+                                    <small></small>
+                                </div>
+                                <div>
                                     {{csrf_field()}}
 
                                     <div class="form-group">
@@ -61,21 +61,23 @@
                                     </div>
 
 
-                            </div>
-                            <div class="d-flex w-100 justify-content-between mb-2">
+                                </div>
+                                <div class="d-flex w-100 justify-content-between mb-2">
+
+                                </div>
 
                             </div>
-
-                        </div>
-                        <div class="list-group-item  flex-column align-items-start bg-white">
-                            <div class="d-flex w-100 justify-content-between mb-2">
+                            <div class="list-group-item  flex-column align-items-start bg-white">
+                                <div class="d-flex w-100 justify-content-between mb-2">
+                                </div>
+                                <div class="d-flex w-100 justify-content-between mb-2">
+                                    @if(isset($_SERVER['HTTP_REFERER']))
+                                        <a href="{{$_SERVER['HTTP_REFERER']}}" class="btn btn-secondary">Back</a>
+                                    @endif
+                                    <button type="submit" class="btn btn-success">Pay</button>
+                                </div>
                             </div>
-                            <div class="d-flex w-100 justify-content-between mb-2">
-                                <a href="{{$_SERVER['HTTP_REFERER']}}" class="btn btn-secondary">Back</a>
-                                <button type="submit" class="btn btn-success">Pay</button>
-                            </div>
-                        </div>
-                            </form>
+                        </form>
                     @endif
                 </div>
             </div>

@@ -122,6 +122,10 @@ class CartController extends Controller
     public function checkout()
     {
         $user_id = Auth::user()->id;
+        $count = Cart::where('user_id', $user_id)->count();
+        if($count == 0){
+            return redirect('/');
+        }
 
         $cart = Cart::where('user_id', $user_id)->get();
 

@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-8 offset-2">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    Showing results for "{{$_GET['param']}}". {{$count}} result(s) found!
+                    Showing results for <strong>{{$_GET['param']}}</strong>. {{$count}} result(s) found!
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

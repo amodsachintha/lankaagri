@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-sm">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    Showing items in "{{$category}}". {{$count}} items(s) found!
+                    Showing items in <strong>{{$category}}</strong>. {{$count}} items(s) found!
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

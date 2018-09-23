@@ -34,13 +34,18 @@
                                     </div>
                                     <p class="card-text">{{$item->description == null ? "Some quick example text to build on the card title and make up the bulk of the card's content." : $item->description}}</p>
                                     <div class="justify-content-center" align="center">
-                                        <a href="/profile?tab=my_items" class="btn btn-secondary mr-3">Back</a>
+                                        @if(isset($_SERVER['HTTP_REFERER']))
+                                            <a href="{{$_SERVER['HTTP_REFERER']}}" class="btn btn-secondary mr-3">Back</a>
+                                        @else
+                                            <a href="/profile?tab=my_items" class="btn btn-secondary mr-3">Back</a>
+                                        @endif
+
                                         @if(\Illuminate\Support\Facades\Auth::user()->id != $item->user_id)
                                             <a href="#" class="btn btn-primary ml-3">Add to cart</a>
                                         @endif
                                         @if(\Illuminate\Support\Facades\Auth::user()->id == $item->user_id)
                                             @if(!$item->deleted)
-                                            <a href="/items/update?id={{$item->id}}" class="btn btn-primary ml-3">Edit Item</a>
+                                                <a href="/items/update?id={{$item->id}}" class="btn btn-primary ml-3">Edit Item</a>
                                                 <button onclick="if(confirm('Are you sure?'))deleteItem('{{$item->id}}')" class="btn btn-danger ml-3">Delete Item</button>
                                             @endif
                                         @endif
@@ -50,24 +55,25 @@
                             </div>
                     </div>
             </div>
+        </div>
 
-            <script>
-                function deleteItem(itemId) {
-                    var ajax = new XMLHttpRequest();
-                    ajax.open('GET', '/items/delete?itemId=' + itemId, true);
-                    ajax.onload = function () {
-                        var list = JSON.parse(ajax.responseText);
-                        if (list['msg'] === 'ok') {
-                            alert('ok');
-                            window.location.reload(true);
-                        }
-                        else {
-                            alert('Failed to delete item!')
-                        }
-                    };
-                    ajax.send();
-                }
-            </script>
+        <script>
+            function deleteItem(itemId) {
+                var ajax = new XMLHttpRequest();
+                ajax.open('GET', '/items/delete?itemId=' + itemId, true);
+                ajax.onload = function () {
+                    var list = JSON.parse(ajax.responseText);
+                    if (list['msg'] === 'ok') {
+                        alert('ok');
+                        window.location.reload(true);
+                    }
+                    else {
+                        alert('Failed to delete item!')
+                    }
+                };
+                ajax.send();
+            }
+        </script>
 
 
     @endif

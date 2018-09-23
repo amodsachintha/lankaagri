@@ -495,7 +495,7 @@
 
                             @if($_GET['tab'] == 'help')
                                 <div class="col-md">
-                                    SHOW <code>HELP</code> HERE
+                                    SHOW Refer the video below <code>HELP</code> HERE
                                 </div>
                             @endif
                         @endif

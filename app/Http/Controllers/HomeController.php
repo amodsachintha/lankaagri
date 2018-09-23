@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Item;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -45,4 +46,23 @@ class HomeController extends Controller
         $categories = Category::orderBy('name', 'ASC')->get();
         return view('home')->with(['items' => $items, 'categories' => $categories]);
     }
+
+
+    public function help(){
+        return view('help');
+    }
+
+
+    public function lk(){
+        session(['applocale'=>'lk']);
+        App::setLocale('lk');
+        return $this->index();
+    }
+
+    public function en(){
+        session(['applocale'=>'en']);
+        App::setLocale('en');
+        return $this->index();
+    }
+
 }
