@@ -418,17 +418,16 @@
                                                     <div class="form-group row">
                                                         <label for="province" class="col-md-4 col-form-label text-md-right">{{ __('profile.province') }}</label>
                                                         <div class="col-md-6">
-                                                            <select id="province" class="form-control{{ $errors->has('province') ? ' is-invalid' : '' }}" name="province" value="{{ $user->province }}"
-                                                                    required>
-                                                                <option>Central</option>
-                                                                <option>Eastern</option>
-                                                                <option>North Central</option>
-                                                                <option>Northern</option>
-                                                                <option>North Western</option>
-                                                                <option>Sabaragamuwa</option>
-                                                                <option>Southern</option>
-                                                                <option>Uva</option>
-                                                                <option>Western</option>
+                                                            <select id="province" class="form-control{{ $errors->has('province') ? ' is-invalid' : '' }}" name="province" required>
+                                                                <option value="Central" {{$user->province == 'Central' ? 'selected' : ''}}>{{__('provinces.central')}}</option>
+                                                                <option value="Eastern" {{$user->province == 'Eastern' ? 'selected' : ''}}>{{__('provinces.eastern')}}</option>
+                                                                <option value="North Central" {{$user->province == 'North Central' ? 'selected' : ''}}>{{__('provinces.northcentral')}}</option>
+                                                                <option value="Northern" {{$user->province == 'Northern' ? 'selected' : ''}}>{{__('provinces.northern')}}</option>
+                                                                <option value="North Western" {{$user->province == 'North Western' ? 'selected' : ''}}>{{__('provinces.northwestern')}}</option>
+                                                                <option value="Sabaragamuwa" {{$user->province == 'Sabaragamuwa' ? 'selected' : ''}}>{{__('provinces.sabaragamuwa')}}</option>
+                                                                <option value="Southern" {{$user->province == 'Southern' ? 'selected' : ''}}>{{__('provinces.sabaragamuwa')}}</option>
+                                                                <option value="Uva" {{$user->province == 'Uva' ? 'selected' : ''}}>{{__('provinces.uva')}}</option>
+                                                                <option value="Western" {{$user->province == 'Western' ? 'selected' : ''}}>{{__('provinces.western')}}</option>
                                                             </select>
                                                             @if ($errors->has('province'))
                                                                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('province') }}</strong></span>

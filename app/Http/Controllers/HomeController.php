@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Item;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -64,6 +63,43 @@ class HomeController extends Controller
         session(['applocale'=>'en']);
         App::setLocale('en');
         return back(302);
+    }
+
+
+    public function showAllProducts(){
+        $categories = Category::orderBy('name', 'ASC')->get();
+
+        if(Auth::check()){
+            $items = Item::where('active', true)
+                ->where('deleted', false)
+                ->where('active', true)
+                ->where('user_id', '!=', Auth::id())
+                ->get();
+
+            $count = Item::where('active', true)
+                ->where('deleted', false)
+                ->where('active', true)
+                ->where('user_id', '!=', Auth::id())
+                ->count();
+        }
+        else{
+            $items = Item::where('active', true)
+                ->where('deleted', false)
+                ->where('active', true)
+                ->get();
+
+            $count = Item::where('active', true)
+                ->where('deleted', false)
+                ->where('active', true)
+                ->count();
+        }
+
+
+        return view('allproducts')->with([
+            'items' => $items,
+            'count' => $count,
+            'categories' => $categories,
+        ]);
     }
 
 }

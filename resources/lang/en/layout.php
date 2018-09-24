@@ -10,5 +10,6 @@ return [
     'cart' => 'Cart',
 
     'search' => 'Search',
+    'allproducts' => 'All Products',
 
 ];

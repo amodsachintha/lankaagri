@@ -18,6 +18,7 @@ Auth::routes();
 Route::get('/locale/lk','HomeController@lk');
 Route::get('/locale/en','HomeController@en');
 Route::get('/help','HomeController@help');
+Route::get('/allproducts','HomeController@showAllProducts');
 
 
 Route::get('/', 'HomeController@index');

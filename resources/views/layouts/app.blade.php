@@ -115,6 +115,11 @@
                             <a class="nav-link" href="/cart"> {{ __('layout.cart') }} <span class="badge badge-info"> {{\App\Http\Controllers\CartController::getCartCount()}}</span></a>
                         </li>
                     @endguest
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/allproducts">{{ __('layout.allproducts') }}</a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="/help">{{ __('profile.help') }}</a>
                     </li>
