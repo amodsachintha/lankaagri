@@ -16,6 +16,9 @@ class LocaleCheck
      */
     public function handle($request, Closure $next)
     {
+        if(!session()->has('applocale'))
+            session(['applocale'=>App::getLocale()]);
+
         if(session()->get('applocale') == 'lk'){
             App::setLocale('lk');
         }

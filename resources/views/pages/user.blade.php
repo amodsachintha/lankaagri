@@ -15,9 +15,9 @@
                                     <h5>{{$user->nic}}</h5>
                                 </div>
                                 <h4><a href="mailto:{{$user->email}}">{{$user->email}}</a></h4>
-                                <h5>mobile: {{$user->mobile}}</h5>
+                                <h5>{{__('admindash.mobile')}}: {{$user->mobile}}</h5>
                                 <p>{{$user->st_address.", ".$user->city.", ".$user->district.", ".$user->province." Province"}}</p>
-                                <code>Joined on: {{date('d M Y h:m A',strtotime($user->created_at))}}</code>
+                                <code>{{__('admindash.addedon')}} {{date('d M Y h:m A',strtotime($user->created_at))}}</code>
                             </div>
                         </div>
                     </div>
@@ -34,13 +34,12 @@
                     </tr>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Quantity</th>
-                        <th>Unit Price</th>
-                        <th>Discount</th>
-                        <th>Date added</th>
-                        <th>Enable/Disable</th>
+                        <th>{{__('profile.name')}}</th>
+                        <th>{{__('admindash.category')}}</th>
+                        <th>{{__('profile.quantity')}}</th>
+                        <th>{{__('admindash.unitprice')}}</th>
+                        <th>{{__('cart.discount')}}</th>
+                        <th>{{__('profile.date')}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -57,15 +56,6 @@
                                 <td>Rs. {{number_format($item->unit_price,2)}}</td>
                                 <td>{{number_format($item->discount,2)}}%</td>
                                 <td>{{date('Y-m-d',strtotime($item->created_at))}}</td>
-                                @if($item->active)
-                                    <td>
-                                        <button onclick="disableItem('{{$item->id}}')" class="btn btn-sm btn-danger">Disable</button>
-                                    </td>
-                                @else
-                                    <td>
-                                        <button onclick="enableItem('{{$item->id}}')" class="btn btn-sm btn-success">Enable</button>
-                                    </td>
-                                @endif
                             </tr>
                             @endforeach
                     </tbody>
@@ -75,40 +65,9 @@
 
         <div class="row">
             <div class="col-md-12" align="center">
-                <a href="/admin?tab=users" class="btn btn-outline-dark">Back</a>
+                <a href="/admin?tab=users" class="btn btn-outline-dark">{{__('checkout.back')}}</a>
             </div>
         </div>
-
-        <script>
-            function enableItem(itemId) {
-                var ajax = new XMLHttpRequest();
-                ajax.open('GET', '/admin/item/enable?itemId=' + itemId, true);
-                ajax.onload = function (ev) {
-                  var list = JSON.parse(ajax.responseText);
-                  if(list['msg'] === 'ok'){
-                      window.location.reload(true);
-                  }else{
-                      alert('Failed to enable item. Sorry!');
-                  }
-                };
-                ajax.send();
-            }
-
-            function disableItem(itemId) {
-                var ajax = new XMLHttpRequest();
-                ajax.open('GET', '/admin/item/disable?itemId=' + itemId, true);
-                ajax.onload = function (ev) {
-                    var list = JSON.parse(ajax.responseText);
-                    if(list['msg'] === 'ok'){
-                        window.location.reload(true);
-                    }else{
-                        alert('Failed to disable item. Sorry!');
-                    }
-                };
-                ajax.send();
-            }
-        </script>
-
 
     </div>
 

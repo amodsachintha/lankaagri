@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-white p-3 rounded mb-4 text-center shadow" style="background-color: #C0392B">
-                <h3>Admin Dashboard</h3>
+                <h3>{{__('admindash.title')}}</h3>
             </div>
         </div>
 
@@ -15,16 +15,16 @@
             <div class="col-sm-2">
                 <ul class="list-group rounded shadow-lg" style="color: black">
                     <li class="list-group-item {{$_GET['tab'] == 'summary' ? 'active' : ''}}">
-                        <a href="/admin?tab=summary" class="text-dark"><strong>Summary</strong></a>
+                        <a href="/admin?tab=summary" class="text-dark"><strong>{{__('admindash.summary')}}</strong></a>
                     </li>
                     <li class="list-group-item {{$_GET['tab'] == 'users' ? 'active' : ''}}">
-                        <a href="/admin?tab=users" class="text-dark"><strong>Users</strong></a>
+                        <a href="/admin?tab=users" class="text-dark"><strong>{{__('admindash.users')}}</strong></a>
                     </li>
                     <li class="list-group-item {{$_GET['tab'] == 'categories' ? 'active' : ''}}">
-                        <a href="/admin?tab=categories" class="text-dark"><strong>Categories</strong></a>
+                        <a href="/admin?tab=categories" class="text-dark"><strong>{{__('admindash.categories')}}</strong></a>
                     </li>
                     <li class="list-group-item {{$_GET['tab'] == 'add_item' ? 'active' : ''}}">
-                        <a href="/admin?tab=add_item&showAll=false" class="text-dark"><strong>Add Item</strong></a>
+                        <a href="/admin?tab=add_item&showAll=false" class="text-dark"><strong>{{__('admindash.additem')}}</strong></a>
                     </li>
                 </ul>
 
@@ -32,7 +32,7 @@
                     <hr>
                     <ul class="list-group rounded shadow-lg" style="color: black">
                         <li class="list-group-item {{$_GET['showAll'] == 'true' ? 'bg-info':''}}">
-                            <a href="/admin?tab=add_item&showAll=true" class="text-dark"><strong>All Items</strong></a>
+                            <a href="/admin?tab=add_item&showAll=true" class="text-dark"><strong>{{__('admindash.allitems')}}</strong></a>
                         </li>
                     </ul>
                 @endif
@@ -75,7 +75,7 @@
                             options: {
                                 title: {
                                     display: true,
-                                    text: 'Items vs Quantity ({{date('F')}})'
+                                    text: '{{__('admindash.m_itemvquantity')}}'
                                 }
                             }
                         };
@@ -106,7 +106,7 @@
                             options: {
                                 title: {
                                     display: true,
-                                    text: 'Items vs Quantity ({{date('Y')}})'
+                                    text: '{{__('admindash.y_itemvquantity')}}'
                                 }
                             }
 
@@ -130,11 +130,11 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
-                                    <th>e-mail</th>
-                                    <th>NIC</th>
-                                    <th>Mobile</th>
-                                    <th>View</th>
+                                    <th>{{__('admindash.categories')}}</th>
+                                    <th>{{__('admindash.email')}}</th>
+                                    <th>{{__('admindash.nic')}}</th>
+                                    <th>{{__('admindash.mobile')}}</th>
+                                    <th>{{__('admindash.view')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -161,7 +161,7 @@
                         <div class="col-sm-3">
                             <ul class="list-group rounded shadow-lg">
                                 @if(isset($categories))
-                                    <li class="list-group-item text-center bg-info"><strong>Categories</strong></li>
+                                    <li class="list-group-item text-center bg-info"><strong>{{__('admindash.categories')}}</strong></li>
                                     @foreach($categories as $category)
                                         <li class="list-group-item">{{$loop->iteration." - " .$category->name}}</li>
                                     @endforeach
@@ -170,10 +170,10 @@
                         </div>
                         <div class="col-sm">
                             <div class="form-group">
-                                <label>Add New Category</label>
-                                <input type="text" class="form-control" id="newCat" placeholder="Category name">
+                                <label>{{__('admindash.addnewcat')}}</label>
+                                <input type="text" class="form-control" id="newCat" placeholder="{{__('admindash.catname')}}">
                             </div>
-                            <button role="button" onclick="if(confirm('Are you sure?'))addNewCategory()" class="btn btn-outline-primary">Add new</button>
+                            <button role="button" onclick="if(confirm('{{__('admindash.areyousure')}}'))addNewCategory()" class="btn btn-outline-primary">{{__('admindash.addnewbutton')}}</button>
                         </div>
                     </div>
 
@@ -186,11 +186,11 @@
                             ajax.onload = function (ev) {
                                 var list = JSON.parse(ajax.responseText);
                                 if (list['msg'] === 'ok') {
-                                    alert('Category added successfully!');
+                                    alert('{{__('admindash.cataddsuccess')}}');
                                     window.location.reload(true);
                                 }
                                 else {
-                                    alert('Failed to add new category!');
+                                    alert('{{__('admindash.cataddfail')}}');
                                 }
                             };
                             ajax.send();
@@ -204,7 +204,7 @@
                         @if(session()->has('errors'))
                             <div class="col">
                                 <div class="alert alert-danger alert-dismissible fade show shadow" role="alert">
-                                    Failed to add Item!
+                                    {{__('admindash.additemfail')}}
                                     @foreach(session()->get('errors')->all() as $message)
                                         <br><code>{{$message}}</code>
                                     @endforeach
@@ -217,7 +217,7 @@
                         @if(session()->has('success'))
                             <div class="col">
                                 <div class="alert alert-success alert-dismissible fade show shadow" role="alert">
-                                    Item added successfully!
+                                    {{__('admindash.additemsuccess')}}
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -229,17 +229,17 @@
                                 <div class="col-sm p-0">
                                     <div class="card ">
                                         <div class="card-header">
-                                            <h4>Add item as admin</h4>
+                                            <h4>{{__('admindash.additemasadmin')}}</h4>
                                         </div>
                                         <div class="card-body">
                                             <form action="/admin/item/add" method="POST" enctype="multipart/form-data">
                                                 {{csrf_field()}}
                                                 <div class="form-group">
-                                                    <label>Item name</label>
+                                                    <label>{{__('admindash.itemname')}}</label>
                                                     <input type="text" name="name" required class="form-control">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Category</label>
+                                                    <label>{{__('admindash.category')}}</label>
                                                     <select name="category_id" required class="form-control">
                                                         @if(isset($categories))
                                                             @foreach($categories as $category)
@@ -250,16 +250,16 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label>Unit price</label>
+                                                    <label>{{__('admindash.unitprice')}}</label>
                                                     <input type="number" step="0.01" name="unit_price" required class="form-control">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label>Image</label>
+                                                    <label>{{__('admindash.image')}}</label>
                                                     <input type="file" name="image" required class="form-control-file">
                                                 </div>
                                                 <div class="mt-4">
-                                                    <input type="submit" value="Save Item" class="btn btn-lg btn-outline-primary">
+                                                    <input type="submit" value="{{__('admindash.saveitem')}}" class="btn btn-lg btn-outline-primary">
                                                 </div>
 
                                             </form>
@@ -283,7 +283,7 @@
                                                                 <h2 class="mb-1">{{$adminItem->name}}</h2>
                                                                 <small>#{{$loop->iteration}}</small>
                                                             </div>
-                                                            <h6>added on: <strong>{{date('d M Y h:m A',strtotime($adminItem->created_at))}}</strong></h6>
+                                                            <h6>{{__('admindash.addedon')}} <strong>{{date('d M Y h:m A',strtotime($adminItem->created_at))}}</strong></h6>
                                                             <h6><code>{{$adminItem->category->name}}</code></h6>
                                                             <h6><strong>Rs. {{number_format($adminItem->unit_price,2)}}</strong></h6>
                                                         </div>

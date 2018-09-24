@@ -57,5 +57,5 @@ Route::get('/admin','AdminController@index');
 Route::post('/admin/item/add','AdminController@addItemAsAdmin');
 Route::get('/category/add','AdminController@addNewCategory');
 Route::get('/user/{id}','AdminController@showUser');
-Route::get('/admin/item/enable','AdminController@enableUserItem');
-Route::get('/admin/item/disable','AdminController@disableUserItem');
+Route::get('/admin/item/enable','ProfileController@enableUserItem');
+Route::get('/admin/item/disable','ProfileController@disableUserItem');

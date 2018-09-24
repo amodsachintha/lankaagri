@@ -79,10 +79,10 @@
 
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('layout.login') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('layout.register') }}</a>
                         </li>
                     @else
 
@@ -93,11 +93,11 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/profile">Profile</a>
+                                <a class="dropdown-item" href="/profile">{{ __('layout.profile') }}</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ __('layout.logout') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -108,15 +108,15 @@
 
                         @if(Auth::user()->isadmin)
                             <li class="nav-item">
-                                <a class="nav-link" href="/admin">Admin</a>
+                                <a class="nav-link text-danger" href="/admin">{{ __('layout.admin') }}</a>
                             </li>
                         @endif
                         <li class="nav-item">
-                            <a class="nav-link" href="/cart"> Cart <span class="badge badge-info"> {{\App\Http\Controllers\CartController::getCartCount()}}</span></a>
+                            <a class="nav-link" href="/cart"> {{ __('layout.cart') }} <span class="badge badge-info"> {{\App\Http\Controllers\CartController::getCartCount()}}</span></a>
                         </li>
                     @endguest
                     <li class="nav-item">
-                        <a class="nav-link" href="/help">Help</a>
+                        <a class="nav-link" href="/help">{{ __('profile.help') }}</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -131,7 +131,7 @@
                 </ul>
                 <form class="form-inline my-2 my-lg-0" action="/items/search" method="GET">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="param" value="{{!isset($_GET['param']) ? '' : $_GET['param']}}">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">{{ __('layout.search') }}</button>
                 </form>
             </div>
         </div>

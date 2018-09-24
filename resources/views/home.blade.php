@@ -64,11 +64,11 @@
                                         </h4>
                                         <h5>Rs. {{$item->unit_price}}</h5>
                                         <h6><a href="#">{{'@'.str_replace(' ','',strtolower($item->user->name))}}</a></h6>
-                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                                        <p class="card-text">{{$item->description}}</p>
                                     </div>
                                     @if(Auth::check())
                                         <div class="card-footer" align="center">
-                                            <button class="btn btn-outline-info" onclick="addToCart('{{$item->id}}')">Add to cart</button>
+                                            <button class="btn btn-outline-info" onclick="addToCart('{{$item->id}}')">{{__('category.addtocart')}}</button>
                                         </div>
                                     @endif
                                 </div>
@@ -89,11 +89,11 @@
             ajax.onload = function () {
                 var list = JSON.parse(ajax.responseText);
                 if (list['msg'] === 'ok') {
-                    alert('Item added to cart!');
+                    alert('{{__('category.addcartok')}}');
                     window.location.reload(true);
                 }
                 else {
-                    alert('Failed to remove item from cart!')
+                    alert('{{__('category.addcartfail')}}')
                 }
             };
             ajax.send();

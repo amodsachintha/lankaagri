@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Item;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -56,13 +57,13 @@ class HomeController extends Controller
     public function lk(){
         session(['applocale'=>'lk']);
         App::setLocale('lk');
-        return $this->index();
+        return back(302);
     }
 
     public function en(){
         session(['applocale'=>'en']);
         App::setLocale('en');
-        return $this->index();
+        return back(302);
     }
 
 }

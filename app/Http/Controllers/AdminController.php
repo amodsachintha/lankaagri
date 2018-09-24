@@ -142,37 +142,5 @@ class AdminController extends Controller
         }
     }
 
-    public function enableUserItem(Request $request)
-    {
-        $itemId = intval($request->get('itemId'));
-        try {
-            $item = Item::findOrFail($itemId);
-            $item->active = true;
-            $item->save();
-            return response()->json(['msg' => 'ok']);
-        } catch (\Throwable $throwable) {
-            return response()->json([
-                'msg' => 'fail',
-                'info' => $throwable->getMessage()
-            ],500);
-        }
-    }
-
-    public function disableUserItem(Request $request)
-    {
-        $itemId = intval($request->get('itemId'));
-        try {
-            $item = Item::findOrFail($itemId);
-            $item->active = false;
-            $item->save();
-            return response()->json(['msg' => 'ok']);
-        } catch (\Throwable $throwable) {
-            return response()->json([
-                'msg' => 'fail',
-                'info' => $throwable->getMessage()
-            ],500);
-        }
-    }
-
 
 }

@@ -8,14 +8,14 @@
                     <table class="table table-hover shadow text-center table-sm table-light">
                         <thead>
                         <tr>
-                            <th colspan="5">ALL PURCHASES</th>
+                            <th colspan="5">{{__('profile.allpurchases')}}</th>
                         </tr>
                         <tr>
                             <th>#</th>
-                            <th>Order ID</th>
-                            <th>Date</th>
-                            <th>Payment method</th>
-                            <th>Total</th>
+                            <th>{{__('order.orderid')}}</th>
+                            <th>{{__('profile.date')}}</th>
+                            <th>{{__('order.paymethod')}}</th>
+                            <th>{{__('profile.total')}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -45,13 +45,13 @@
                     <table class="table table-hover shadow text-center table-sm table-light">
                         <thead>
                         <tr>
-                            <th colspan="5">ALL SALES (PER ITEM) AGGREGATED</th>
+                            <th colspan="5">{{__('profile.allsales')}} {{__('order.peritemaggregated')}}</th>
                         </tr>
                         <tr>
                             <th>#</th>
-                            <th>Item name</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
+                            <th>{{__('admindash.itemname')}}</th>
+                            <th>{{__('profile.quantity')}}</th>
+                            <th>{{__('profile.total')}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -64,7 +64,7 @@
                             </tr>
                         @endforeach
                         <tr>
-                            <td colspan="3" class="text-right h5">Total:</td>
+                            <td colspan="3" class="text-right h5">{{__('cart.subtotal')}}</td>
                             <td class="h4">Rs. {{number_format($orderlinesTotal,2)}}</td>
                         </tr>
                         </tbody>
@@ -73,7 +73,7 @@
             </div>
                 <div class="row">
                     <div class="col-sm" align="center">
-                        <a href="/profile?tab=summary" class="btn btn-outline-secondary">Go back</a>
+                        <a href="/profile?tab=summary" class="btn btn-outline-secondary">{{__('checkout.back')}}</a>
                     </div>
                 </div>
         @endif

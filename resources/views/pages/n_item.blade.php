@@ -19,9 +19,9 @@
             <div class="card">
                 <div class="card-header">
                     @if(isset($item))
-                        <h5>Edit Item: {{$item->name}}</h5>
+                        <h5>{{__('item.edititem')}} {{$item->name}}</h5>
                     @else
-                        <h5>Add new Item</h5>
+                        <h5>{{__('profile.addnewitem')}}</h5>
                     @endif
                 </div>
 
@@ -34,7 +34,7 @@
                                     @endif
                                     {{csrf_field()}}
                                     <div class="form-group">
-                                        <label>Item name</label>
+                                        <label>{{__('profile.itemname')}}</label>
                                         @if(isset($item))
                                             <input type="text" name="name" class="form-control" value="{{$item->name}}" required>
                                         @else
@@ -48,17 +48,17 @@
                                                 <img src="{{asset($item->image)}}" width="200" class="img-thumbnail mr-4">
                                             </div>
                                             <div style="display: inline-block">
-                                                <label>Item image</label>
+                                                <label>{{__('admindash.image')}}</label>
                                                 <input type="file" name="image" class="form-control-file">
                                             </div>
                                         @else
-                                            <label>Item image</label>
+                                            <label>{{__('admindash.image')}}</label>
                                             <input type="file" name="image" class="form-control-file" required>
                                         @endif
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Category</label>
+                                        <label>{{__('admindash.category')}}</label>
                                         <select name="category_id" class="form-control" required>
                                             @if(isset($item))
                                                 @foreach($categories as $category)
@@ -77,7 +77,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Quantity</label>
+                                        <label>{{__('profile.quantity')}}</label>
                                         @if(isset($item))
                                             <input type="number" name="quantity" class="form-control" min="1" value="{{$item->quantity}}" required>
                                         @else
@@ -86,7 +86,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Unit Price</label>
+                                        <label>{{__('profile.quantity')}}</label>
                                         @if(isset($item))
                                             <input type="number" name="unit_price" class="form-control" min="1" value="{{$item->unit_price}}" step="0.01" required>
                                         @else
@@ -95,7 +95,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Discount %</label>
+                                        <label>{{__('cart.discount')}} %</label>
                                         @if(isset($item))
                                             <input type="number" name="discount" class="form-control" min="1" max="100" value="{{$item->discount}}" step="0.01" required>
                                         @else
@@ -104,7 +104,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Price per quantity</label>
+                                        <label>{{__('item.ppq')}}</label>
                                         @if(isset($item))
                                             <input type="number" name="ppq" class="form-control" min="1" value="{{$item->ppq}}" step="0.01" required>
                                         @else
@@ -113,7 +113,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Description</label>
+                                        <label>{{__('item.description')}}</label>
                                         @if(isset($item))
                                             <input type="text" name="description" class="form-control"  value="{{$item->description}}">
                                         @else
@@ -124,7 +124,7 @@
 
                                     <div class="col-md" align="center">
                                         @if(isset($item))
-                                            <input type="submit" class="btn btn-success" value="Update Item">
+                                            <input type="submit" class="btn btn-success" value="{{__('cart.update')}}">
                                         @else
                                             <input type="submit" class="btn btn-success">
                                         @endif

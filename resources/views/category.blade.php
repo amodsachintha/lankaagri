@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-sm">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    Showing items in <strong>{{$category}}</strong>. {{$count}} items(s) found!
+                    {{__('category.showing')}} <strong>{{$category}}</strong>. {{$count}} {{__('category.itemsfound')}}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -47,7 +47,7 @@
                                 @if(\Auth::check())
                                     @if(\Auth::id() != $item->user_id)
                                         <div class="card-footer" align="center">
-                                            <button class="btn btn-outline-info" onclick="addToCart('{{$item->id}}')">Add to cart</button>
+                                            <button class="btn btn-outline-info" onclick="addToCart('{{$item->id}}')">{{__('category.addtocart')}}</button>
                                         </div>
                                     @endif
                                 @endif
@@ -66,11 +66,11 @@
             ajax.onload = function () {
                 var list = JSON.parse(ajax.responseText);
                 if (list['msg'] === 'ok') {
-                    alert('Item added to cart!');
+                    alert('{{__('category.addcartok')}}');
                     window.location.reload(true);
                 }
                 else {
-                    alert('Failed to add item to cart!');
+                    alert('{{__('category.addcartfail')}}');
                 }
             };
             ajax.send();
