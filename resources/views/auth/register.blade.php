@@ -72,15 +72,15 @@
 
                             <div class="col-md-6">
                                 <select id="province"  class="form-control{{ $errors->has('province') ? ' is-invalid' : '' }}" name="province" value="{{ old('province') }}" required>
-                                    <option>Central</option>
-                                    <option>Eastern</option>
-                                    <option>North Central</option>
-                                    <option>Northern</option>
-                                    <option>North Western</option>
-                                    <option>Sabaragamuwa</option>
-                                    <option>Southern</option>
-                                    <option>Uva</option>
-                                    <option>Western</option>
+                                    <option value="Central">{{__('provinces.central')}}</option>
+                                    <option value="Eastern">{{__('provinces.eastern')}}</option>
+                                    <option value="North Central">{{__('provinces.northcentral')}}</option>
+                                    <option value="Northern">{{__('provinces.northern')}}</option>
+                                    <option value="North Western">{{__('provinces.northwestern')}}</option>
+                                    <option value="Sabaragamuwa">{{__('provinces.sabaragamuwa')}}</option>
+                                    <option value="Southern">{{__('provinces.sabaragamuwa')}}</option>
+                                    <option value="Uva">{{__('provinces.uva')}}</option>
+                                    <option value="Western">{{__('provinces.western')}}</option>
                                 </select>
                                 @if ($errors->has('province'))
                                     <span class="invalid-feedback" role="alert">
