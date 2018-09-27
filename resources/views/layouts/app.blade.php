@@ -153,7 +153,7 @@
                     <div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
                         <div class="copyright_content">
                             Lanka Agri &copy; <script>document.write(new Date().getFullYear());</script>
-                            All rights reserved | <a href="https://amodsachintha.github.io" target="_blank">amodsachintha</a>
+                            All rights reserved
                         </div>
                     </div>
                 </div>
