@@ -86,7 +86,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>{{__('profile.quantity')}}</label>
+                                        <label>{{__('admindash.unitprice')}}</label>
                                         @if(isset($item))
                                             <input type="number" name="unit_price" class="form-control" min="1" value="{{$item->unit_price}}" step="0.01" required>
                                         @else
@@ -97,9 +97,9 @@
                                     <div class="form-group">
                                         <label>{{__('cart.discount')}} %</label>
                                         @if(isset($item))
-                                            <input type="number" name="discount" class="form-control" min="1" max="100" value="{{$item->discount}}" step="0.01" required>
+                                            <input type="number" name="discount" class="form-control" min="0" max="100" value="{{$item->discount}}" step="0.01" required>
                                         @else
-                                            <input type="number" name="discount" class="form-control" min="1" max="100" value="1" step="0.01" required>
+                                            <input type="number" name="discount" class="form-control" min="0" max="100" value="1" step="0.01" required>
                                         @endif
                                     </div>
 
