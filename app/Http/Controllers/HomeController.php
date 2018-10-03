@@ -27,18 +27,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             $items = Item::orderBy(DB::raw('RAND()'))
                 ->where('active', true)
-                ->where('deleted',false)
-                ->where('user_id','!=',Auth::user()->id)
+                ->where('deleted', false)
+                ->where('user_id', '!=', Auth::user()->id)
                 ->limit(6)
                 ->get();
-        }
-        else{
+        } else {
             $items = Item::orderBy(DB::raw('RAND()'))
                 ->where('active', true)
-                ->where('deleted',false)
+                ->where('deleted', false)
                 ->limit(6)
                 ->get();
         }
@@ -48,28 +47,32 @@ class HomeController extends Controller
     }
 
 
-    public function help(){
+    public function help()
+    {
         return view('help');
     }
 
 
-    public function lk(){
-        session(['applocale'=>'lk']);
+    public function lk()
+    {
+        session(['applocale' => 'lk']);
         App::setLocale('lk');
         return back(302);
     }
 
-    public function en(){
-        session(['applocale'=>'en']);
+    public function en()
+    {
+        session(['applocale' => 'en']);
         App::setLocale('en');
         return back(302);
     }
 
 
-    public function showAllProducts(){
+    public function showAllProducts()
+    {
         $categories = Category::orderBy('name', 'ASC')->get();
 
-        if(Auth::check()){
+        if (Auth::check()) {
             $items = Item::where('active', true)
                 ->where('deleted', false)
                 ->where('active', true)
@@ -81,8 +84,7 @@ class HomeController extends Controller
                 ->where('active', true)
                 ->where('user_id', '!=', Auth::id())
                 ->count();
-        }
-        else{
+        } else {
             $items = Item::where('active', true)
                 ->where('deleted', false)
                 ->where('active', true)
@@ -100,6 +102,23 @@ class HomeController extends Controller
             'count' => $count,
             'categories' => $categories,
         ]);
+    }
+
+    public static function showCities($activeCity)
+    {
+        $cities = DB::table('users')
+            ->select(['city'])
+            ->distinct()
+            ->get();
+
+        foreach ($cities as $city) {
+            if ($city->city == $activeCity) {
+                echo "<option selected>" . $city->city . "</option>";
+            } else {
+                echo "<option>" . $city->city . "</option>";
+            }
+        }
+
     }
 
 }

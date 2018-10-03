@@ -25,30 +25,40 @@ class ItemsController extends Controller
         }
         if (Auth::check()) {
             $items = Item::where('active', true)
-//                ->where('user_id', '!=', Auth::user()->id)
+                ->join('users','items.user_id','users.id')
+                ->select(['items.*','users.city'])
                 ->where('deleted', false)
-                ->where('name', 'like', '%' . $request->get('param') . '%')
+                ->where('items.name', 'like', '%' . $request->get('param') . '%')
+                ->where('users.city', 'like', '%' . $request->get('city') . '%')
                 ->get();
 
             $count = Item::where('active', true)
-//                ->where('user_id', '!=', Auth::user()->id)
+                ->join('users','items.user_id','users.id')
+                ->select(['items.*','users.city'])
                 ->where('deleted', false)
-                ->where('name', 'like', '%' . $request->get('param') . '%')
+                ->where('items.name', 'like', '%' . $request->get('param') . '%')
+                ->where('users.city', 'like', '%' . $request->get('city') . '%')
                 ->count();
         } else {
             $items = Item::where('active', true)
+                ->join('users','items.user_id','users.id')
+                ->select(['items.*','users.city'])
                 ->where('deleted', false)
-                ->where('name', 'like', '%' . $request->get('param') . '%')
+                ->where('items.name', 'like', '%' . $request->get('param') . '%')
+                ->where('users.city', 'like', '%' . $request->get('city') . '%')
                 ->get();
 
             $count = Item::where('active', true)
+                ->join('users','items.user_id','users.id')
+                ->select(['items.*','users.city'])
                 ->where('deleted', false)
-                ->where('name', 'like', '%' . $request->get('param') . '%')
+                ->where('items.name', 'like', '%' . $request->get('param') . '%')
+                ->where('users.city', 'like', '%' . $request->get('city') . '%')
                 ->count();
         }
 
 
-        return view('search')->with(['items' => $items, 'count' => $count]);
+        return view('search')->with(['items' => $items, 'count' => $count, 'city'=>$request->get('city')]);
     }
 
 

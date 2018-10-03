@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-8 offset-2">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{__('category.showing')}} <strong>{{$_GET['param']}}</strong>. {{$count}} {{__('category.itemsfound')}}
+                    <strong>[{{$city}}]</strong> {{__('category.showing')}} <strong>{{$_GET['param']}}</strong>. {{$count}} {{__('category.itemsfound')}}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

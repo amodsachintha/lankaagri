@@ -24,27 +24,26 @@
     <link href="{{ asset('css/profile.css') }}" rel="stylesheet">
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
     <style>
-        .copyright
-        {
+        .copyright {
             width: 100%;
             background: #fafafa;
         }
-        .copyright_container
-        {
+
+        .copyright_container {
             width: 100%;
             height: 56px;
         }
-        .copyright_content
-        {
+
+        .copyright_content {
             font-size: 12px;
-            color: rgba(0,0,0,0.6);
+            color: rgba(0, 0, 0, 0.6);
         }
-        .copyright_content span
-        {
+
+        .copyright_content span {
             font-weight: 500;
         }
-        .bg-image
-        {
+
+        .bg-image {
             background-image: url({{asset('storage/carousel/GroceriesPhoto.png')}});
             height: 100%;
             background-position: bottom;
@@ -136,6 +135,13 @@
                 </ul>
                 <form class="form-inline my-2 my-lg-0" action="/items/search" method="GET">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="param" value="{{!isset($_GET['param']) ? '' : $_GET['param']}}">
+                    <select name="city" class="form-control mr-sm-2 w-25" required>
+                        @if(isset($city))
+                            {{\App\Http\Controllers\HomeController::showCities($city)}}
+                        @else
+                            {{\App\Http\Controllers\HomeController::showCities(null)}}
+                        @endif
+                    </select>
                     <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">{{ __('layout.search') }}</button>
                 </form>
             </div>
@@ -152,7 +158,8 @@
 
                     <div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
                         <div class="copyright_content">
-                            Lanka Agri &copy; <script>document.write(new Date().getFullYear());</script>
+                            Lanka Agri &copy;
+                            <script>document.write(new Date().getFullYear());</script>
                             All rights reserved
                         </div>
                     </div>
