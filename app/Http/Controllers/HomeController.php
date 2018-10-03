@@ -109,6 +109,7 @@ class HomeController extends Controller
         $cities = DB::table('users')
             ->select(['city'])
             ->distinct()
+            ->orderBy('city','asc')
             ->get();
 
         foreach ($cities as $city) {
